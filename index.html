@@ -1,0 +1,1222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Little Days — Baby Milestones & Memories</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Day-by-day milestone tracking, activity ideas, and a memory log for your baby. No account, no ads — everything stays on your device.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf3eb">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#211b31">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Little Days">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&display=swap" rel="stylesheet">
+<style>
+/* ---------- tokens ---------- */
+:root{
+  --bg:#faf3eb; --surface:#ffffff; --raised:#fff9f1;
+  --text:#38304e; --muted:#7d7492; --line:rgba(56,48,78,.12);
+  --accent:#e08856; --accent-soft:rgba(224,136,86,.14);
+  --sage:#7fa477; --sage-soft:rgba(127,164,119,.16);
+  --gold:#c9a452; --danger:#c4574d;
+  --glow:rgba(224,136,86,.20);
+  --shadow:0 6px 24px rgba(56,48,78,.08);
+  --r:20px; --tap:48px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#211b31; --surface:#2a2340; --raised:#332b4c;
+    --text:#f5efe6; --muted:#a99fc0; --line:rgba(245,239,230,.10);
+    --accent:#f2a97e; --accent-soft:rgba(242,169,126,.14);
+    --sage:#a9c7a1; --sage-soft:rgba(169,199,161,.14);
+    --gold:#e8c87e; --danger:#e2837b;
+    --glow:rgba(242,169,126,.16);
+    --shadow:0 6px 24px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="light"]{
+  --bg:#faf3eb; --surface:#ffffff; --raised:#fff9f1;
+  --text:#38304e; --muted:#7d7492; --line:rgba(56,48,78,.12);
+  --accent:#e08856; --accent-soft:rgba(224,136,86,.14);
+  --sage:#7fa477; --sage-soft:rgba(127,164,119,.16);
+  --gold:#c9a452; --danger:#c4574d;
+  --glow:rgba(224,136,86,.20);
+  --shadow:0 6px 24px rgba(56,48,78,.08);
+}
+:root[data-theme="dark"]{
+  --bg:#211b31; --surface:#2a2340; --raised:#332b4c;
+  --text:#f5efe6; --muted:#a99fc0; --line:rgba(245,239,230,.10);
+  --accent:#f2a97e; --accent-soft:rgba(242,169,126,.14);
+  --sage:#a9c7a1; --sage-soft:rgba(169,199,161,.14);
+  --gold:#e8c87e; --danger:#e2837b;
+  --glow:rgba(242,169,126,.16);
+  --shadow:0 6px 24px rgba(0,0,0,.25);
+}
+/* ---------- base ---------- */
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html{color-scheme:light dark}
+html,body{margin:0; padding:0}
+body{
+  background:var(--bg); color:var(--text);
+  font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  min-height:100dvh; overscroll-behavior-y:none;
+  -webkit-font-smoothing:antialiased;
+}
+.display{font-family:"Fraunces",Georgia,"Iowan Old Style",serif}
+button{font:inherit; color:inherit; background:none; border:none; cursor:pointer; padding:0}
+input,select,textarea{font:inherit; color:inherit}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px; border-radius:8px}
+a{color:var(--accent)}
+::selection{background:var(--accent-soft)}
+
+/* ---------- app shell ---------- */
+#app{max-width:560px; margin:0 auto; padding:calc(14px + env(safe-area-inset-top)) 18px calc(96px + env(safe-area-inset-bottom));}
+.tabbar{
+  position:fixed; left:0; right:0; bottom:0; z-index:40;
+  display:flex; justify-content:center; gap:2px;
+  padding:8px 10px calc(8px + env(safe-area-inset-bottom));
+  background:color-mix(in srgb, var(--bg) 82%, transparent);
+  -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);
+}
+.tabbar button{
+  flex:1; max-width:104px; min-height:var(--tap);
+  display:flex; flex-direction:column; align-items:center; gap:3px;
+  color:var(--muted); border-radius:14px; padding:6px 2px 4px;
+  font-size:11px; font-weight:600; letter-spacing:.02em;
+  transition:color .15s;
+}
+.tabbar[hidden]{display:none}
+.tabbar button svg{width:23px; height:23px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
+.tabbar button[aria-current="page"]{color:var(--accent)}
+.tabbar button[aria-current="page"] .dotu{width:4px;height:4px;border-radius:2px;background:var(--accent)}
+.dotu{width:4px;height:4px;border-radius:2px;background:transparent}
+
+/* desktop: rail on the left, roomier canvas */
+@media (min-width:900px){
+  body{display:block}
+  #app{max-width:680px; padding-left:24px; padding-right:24px; padding-bottom:48px}
+  .tabbar{
+    left:max(12px, calc(50vw - 340px - 130px)); right:auto; top:50%; bottom:auto; transform:translateY(-50%);
+    flex-direction:column; width:96px; border:1px solid var(--line); border-radius:22px;
+    padding:14px 8px; gap:6px; box-shadow:var(--shadow); background:color-mix(in srgb, var(--surface) 88%, transparent);
+  }
+  .tabbar button{max-width:none; font-size:11.5px}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  .grid2 .span2{grid-column:1 / -1}
+}
+@media (max-width:899px){ .grid2>*{margin-bottom:0} }
+
+/* ---------- components ---------- */
+.card{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:16px 16px; box-shadow:var(--shadow); margin:0 0 14px;
+}
+.card h2{margin:0 0 4px; font-size:15px; font-weight:700; letter-spacing:.01em}
+.card .sub{color:var(--muted); font-size:13px; margin:0 0 10px}
+.eyebrow{font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+.chip{
+  display:inline-flex; align-items:center; gap:5px; padding:5px 11px; border-radius:999px;
+  background:var(--raised); border:1px solid var(--line); font-size:12.5px; font-weight:600;
+  color:var(--muted); font-variant-numeric:tabular-nums;
+}
+.chip.on{background:var(--accent-soft); color:var(--accent); border-color:transparent}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  min-height:var(--tap); padding:10px 20px; border-radius:16px;
+  background:var(--accent); color:var(--bg); font-weight:700; font-size:15px;
+  border:none; transition:transform .1s, filter .15s;
+}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:var(--raised); color:var(--text); border:1px solid var(--line)}
+.btn.quiet{background:none; color:var(--accent); min-height:40px; padding:6px 10px}
+.btn.danger{background:none; border:1px solid var(--danger); color:var(--danger)}
+.btn.small{min-height:38px; padding:6px 14px; font-size:13.5px; border-radius:12px}
+.row{display:flex; align-items:center; gap:10px}
+.row.between{justify-content:space-between}
+.stack{display:flex; flex-direction:column; gap:10px}
+
+/* hero */
+.hero{position:relative; padding:26px 4px 8px; margin-bottom:10px}
+.hero .halo{
+  position:absolute; top:-30px; left:50%; transform:translateX(-50%);
+  width:280px; height:280px; border-radius:50%;
+  background:radial-gradient(circle, var(--glow), transparent 65%);
+  pointer-events:none; animation:breathe 5s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{opacity:.75; transform:translateX(-50%) scale(1)} 50%{opacity:1; transform:translateX(-50%) scale(1.07)}}
+.hero .who{font-size:17px; color:var(--muted); margin:14px 0 0; position:relative}
+.hero .age{
+  font-size:clamp(38px, 11vw, 56px); line-height:1.08; font-weight:560;
+  margin:2px 0 12px; position:relative; letter-spacing:-.01em; text-wrap:balance;
+  font-variant-numeric:tabular-nums;
+}
+.hero .chips{display:flex; flex-wrap:wrap; gap:7px; position:relative}
+.hero .brand{display:flex; align-items:center; justify-content:space-between; position:relative}
+.hero .brand .date{font-size:12.5px; color:var(--muted); font-weight:600}
+
+/* activity cards */
+.acts{display:flex; flex-direction:column; gap:10px}
+.act{
+  display:flex; gap:12px; align-items:flex-start; padding:12px 13px;
+  background:var(--raised); border:1px solid var(--line); border-radius:16px;
+}
+.act .e{font-size:24px; line-height:1.2; flex:none; margin-top:1px}
+.act b{display:block; font-size:14.5px; margin-bottom:1px}
+.act p{margin:0; font-size:13px; color:var(--muted); line-height:1.45}
+
+/* phase note */
+.phase{background:var(--sage-soft); border:none; }
+.phase b{font-size:14px}
+.phase p{margin:2px 0 0; font-size:13px; color:var(--muted)}
+
+/* progress */
+.bar{height:8px; border-radius:6px; background:var(--raised); border:1px solid var(--line); overflow:hidden}
+.bar i{display:block; height:100%; border-radius:6px; background:linear-gradient(90deg, var(--accent), var(--gold)); transition:width .4s ease}
+
+/* milestone pills */
+.pills{display:flex; gap:8px; overflow-x:auto; padding:4px 2px 10px; scrollbar-width:none; -ms-overflow-style:none}
+.pills::-webkit-scrollbar{display:none}
+.pill{
+  flex:none; min-height:40px; padding:7px 15px; border-radius:999px; font-weight:700; font-size:13.5px;
+  background:var(--surface); border:1px solid var(--line); color:var(--muted);
+  display:flex; align-items:center; gap:7px;
+}
+.pill .pct{font-size:10.5px; font-weight:700; color:var(--muted); font-variant-numeric:tabular-nums}
+.pill[aria-pressed="true"]{background:var(--accent); color:var(--bg); border-color:transparent}
+.pill[aria-pressed="true"] .pct{color:var(--bg)}
+.pill .now{width:6px; height:6px; border-radius:3px; background:var(--gold); flex:none}
+
+/* check rows */
+.cat{margin:16px 0 6px; font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.check{
+  display:flex; width:100%; text-align:left; gap:12px; align-items:flex-start;
+  padding:11px 6px; min-height:var(--tap); border-radius:12px; border-bottom:1px solid var(--line);
+}
+.check:last-child{border-bottom:none}
+.check .box{
+  flex:none; width:26px; height:26px; border-radius:50%; margin-top:1px;
+  border:2px solid var(--muted); display:flex; align-items:center; justify-content:center;
+  transition:all .15s; color:transparent; font-size:15px; font-weight:800;
+}
+.check[aria-pressed="true"] .box{background:var(--sage); border-color:var(--sage); color:var(--bg)}
+.check .lbl{font-size:14.5px; line-height:1.4}
+.check[aria-pressed="true"] .lbl{color:var(--muted)}
+.check .when{display:block; font-size:11.5px; color:var(--sage); font-weight:700; margin-top:2px; font-variant-numeric:tabular-nums}
+@keyframes pop{0%{transform:scale(1)} 40%{transform:scale(1.25)} 100%{transform:scale(1)}}
+.check.justdid .box{animation:pop .35s ease}
+
+/* firsts */
+.firsts{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.first{
+  border-radius:18px; padding:14px 12px; text-align:left; min-height:104px;
+  display:flex; flex-direction:column; gap:3px; align-items:flex-start;
+  background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow);
+}
+.first.todo{background:none; border:1.5px dashed var(--line); box-shadow:none; color:var(--muted)}
+.first .e{font-size:26px}
+.first b{font-size:13.5px; line-height:1.25}
+.first .d{font-size:11.5px; color:var(--accent); font-weight:700; font-variant-numeric:tabular-nums}
+.first .n{font-size:11.5px; color:var(--muted); font-style:italic; line-height:1.3; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+
+/* days list */
+.day{
+  display:flex; align-items:center; gap:13px; padding:11px 4px; border-bottom:1px solid var(--line);
+}
+.day:last-child{border-bottom:none}
+.day .cal{
+  flex:none; width:46px; text-align:center; background:var(--raised); border:1px solid var(--line);
+  border-radius:12px; padding:5px 0 6px; font-variant-numeric:tabular-nums;
+}
+.day .cal .mo{display:block; font-size:9.5px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--accent)}
+.day .cal .dd{display:block; font-size:17px; font-weight:700; line-height:1.1}
+.day .t{flex:1; min-width:0}
+.day .t b{display:block; font-size:14.5px}
+.day .t span{font-size:12px; color:var(--muted)}
+.day .in{flex:none}
+
+/* forms */
+.field{display:flex; flex-direction:column; gap:6px; margin-bottom:14px}
+.field label{font-size:13px; font-weight:700; color:var(--muted)}
+.field input[type="text"], .field input[type="date"], .field input[type="number"], .field select, .field textarea{
+  min-height:var(--tap); padding:10px 14px; border-radius:14px; width:100%;
+  background:var(--raised); border:1.5px solid var(--line); color:var(--text);
+}
+.field input:focus, .field select:focus, .field textarea:focus{border-color:var(--accent); outline:none}
+.seg{display:flex; background:var(--raised); border:1px solid var(--line); border-radius:14px; padding:4px; gap:4px}
+.seg button{flex:1; min-height:40px; border-radius:10px; font-weight:700; font-size:13.5px; color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--accent); color:var(--bg)}
+
+/* sheet + toast */
+.backdrop{position:fixed; inset:0; background:rgba(20,15,35,.45); z-index:60; -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px)}
+.sheet{
+  position:fixed; left:0; right:0; bottom:0; z-index:61; max-height:88dvh; overflow:auto;
+  background:var(--surface); border-radius:24px 24px 0 0; border:1px solid var(--line); border-bottom:none;
+  padding:10px 20px calc(22px + env(safe-area-inset-bottom));
+  animation:up .22s ease;
+}
+.sheet .grab{width:38px; height:4px; border-radius:2px; background:var(--line); margin:4px auto 14px}
+.sheet h3{margin:0 0 14px; font-size:17px}
+@keyframes up{from{transform:translateY(40px); opacity:.5} to{transform:none; opacity:1}}
+@media (min-width:700px){
+  .sheet{left:50%; right:auto; bottom:auto; top:50%; transform:translate(-50%,-50%); width:min(440px, 92vw); border-radius:24px; border-bottom:1px solid var(--line); animation:fadein .18s ease}
+  @keyframes fadein{from{opacity:0; transform:translate(-50%,-48%)} to{opacity:1; transform:translate(-50%,-50%)}}
+}
+.toast{
+  position:fixed; left:50%; transform:translateX(-50%); bottom:calc(96px + env(safe-area-inset-bottom)); z-index:70;
+  background:var(--text); color:var(--bg); padding:10px 20px; border-radius:999px; font-weight:700; font-size:14px;
+  box-shadow:var(--shadow); animation:up .2s ease; max-width:88vw; text-align:center;
+}
+@media (min-width:900px){ .toast{bottom:40px} }
+
+/* onboarding */
+.onb{min-height:88dvh; display:flex; flex-direction:column; justify-content:center; padding:10px 2px}
+.onb .moon{font-size:52px; margin-bottom:6px}
+.onb h1{font-size:clamp(34px,9vw,44px); margin:0 0 6px; font-weight:600; letter-spacing:-.01em}
+.onb .lede{color:var(--muted); font-size:16px; margin:0 0 26px; max-width:34ch}
+.onb .fine{font-size:12.5px; color:var(--muted); margin-top:16px; line-height:1.5}
+
+details.past summary{cursor:pointer; min-height:var(--tap); display:flex; align-items:center; font-weight:700; font-size:14px; color:var(--muted); list-style:none}
+details.past summary::-webkit-details-marker{display:none}
+
+.note{font-size:12.5px; color:var(--muted); line-height:1.5}
+.center{text-align:center}
+hr.soft{border:none; border-top:1px solid var(--line); margin:16px 0}
+#fx{position:fixed; inset:0; pointer-events:none; z-index:80}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important; transition:none !important}
+}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<div id="app"></div>
+<nav class="tabbar" id="tabbar" hidden aria-label="Main">
+  <button data-nav="today"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.2 5.2l1.7 1.7M17.1 17.1l1.7 1.7M18.8 5.2l-1.7 1.7M6.9 17.1l-1.7 1.7"/></svg>Today<span class="dotu"></span></button>
+  <button data-nav="milestones"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 9.2l5.4-.8z"/></svg>Milestones<span class="dotu"></span></button>
+  <button data-nav="firsts"><svg viewBox="0 0 24 24"><path d="M12 20.3S4 15.1 4 9.9C4 7.2 6.1 5 8.7 5c1.5 0 2.7.9 3.3 1.8C12.6 5.9 13.8 5 15.3 5 17.9 5 20 7.2 20 9.9c0 5.2-8 10.4-8 10.4z"/></svg>Firsts<span class="dotu"></span></button>
+  <button data-nav="days"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 2.8V6M16 2.8V6"/><circle cx="12" cy="15" r="1.3" fill="currentColor" stroke="none"/></svg>Days<span class="dotu"></span></button>
+  <button data-nav="more"><svg viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="18.5" cy="12" r="1.4" fill="currentColor" stroke="none"/><rect x="3.5" y="4.5" width="17" height="15" rx="3.5"/></svg>More<span class="dotu"></span></button>
+</nav>
+
+<noscript><p style="padding:40px 24px; text-align:center">Little Days needs JavaScript turned on.</p></noscript>
+
+<script>
+'use strict';
+/* =============================================================
+   Little Days — everything lives on this device. v1.0.0
+   Milestone content: CDC "Learn the Signs. Act Early." (2022)
+   ============================================================= */
+const VERSION = '1.0.0';
+const LS_KEY = 'littledays.v1';
+
+/* ---------- data: CDC milestone checklists (75%+ of babies by each age) ---------- */
+const CATS = {
+  social:   { n:'Social & emotional', e:'💞' },
+  language: { n:'Language & communication', e:'💬' },
+  cognitive:{ n:'Thinking & learning', e:'🧠' },
+  movement: { n:'Movement & physical', e:'🤸' }
+};
+const MILESTONES = [
+{m:2, label:'2 months', cats:{
+ social:['Calms down when spoken to or picked up','Looks at your face','Seems happy to see you when you walk up','Smiles when you talk to or smile at them'],
+ language:['Makes sounds other than crying','Reacts to loud sounds'],
+ cognitive:['Watches you as you move','Looks at a toy for several seconds'],
+ movement:['Holds head up when on tummy','Moves both arms and both legs','Opens hands briefly']}},
+{m:4, label:'4 months', cats:{
+ social:['Smiles on their own to get your attention','Chuckles (not quite a laugh yet) when you try to make them laugh','Looks at you, moves, or makes sounds to get or keep your attention'],
+ language:['Makes cooing sounds like “oooo” and “aahh”','Makes sounds back when you talk','Turns head toward the sound of your voice'],
+ cognitive:['When hungry, opens mouth at the sight of breast or bottle','Looks at their hands with interest'],
+ movement:['Holds head steady without support when you hold them','Holds a toy when you put it in their hand','Uses an arm to swing at toys','Brings hands to mouth','Pushes up onto forearms when on tummy']}},
+{m:6, label:'6 months', cats:{
+ social:['Knows familiar people','Likes to look at themselves in a mirror','Laughs'],
+ language:['Takes turns making sounds with you','Blows “raspberries” (sticks tongue out and blows)','Makes squealing noises'],
+ cognitive:['Puts things in mouth to explore them','Reaches to grab a toy they want','Closes lips to show they don’t want more food'],
+ movement:['Rolls from tummy to back','Pushes up with straight arms when on tummy','Leans on hands to support themselves when sitting']}},
+{m:9, label:'9 months', cats:{
+ social:['Is shy, clingy, or fearful around strangers','Shows several facial expressions — happy, sad, angry, surprised','Looks when you call their name','Reacts when you leave (looks, reaches, or cries)','Smiles or laughs at peek-a-boo'],
+ language:['Makes different sounds like “mamamama” and “babababa”','Lifts arms up to be picked up'],
+ cognitive:['Looks for objects when dropped out of sight, like a spoon or toy','Bangs two things together'],
+ movement:['Gets to a sitting position by themselves','Moves things from one hand to the other','Uses fingers to “rake” food closer','Sits without support']}},
+{m:12, label:'1 year', cats:{
+ social:['Plays games with you, like pat-a-cake'],
+ language:['Waves “bye-bye”','Calls a parent “mama,” “dada,” or another special name','Understands “no” (pauses briefly or stops when you say it)'],
+ cognitive:['Puts something in a container, like a block in a cup','Looks for things they see you hide, like a toy under a blanket'],
+ movement:['Pulls up to stand','Walks holding on to furniture','Drinks from a cup without a lid as you hold it','Picks things up between thumb and pointer finger, like small bits of food']}},
+{m:15, label:'15 months', cats:{
+ social:['Copies other children while playing, like taking toys out of a container when another child does','Shows you an object they like','Claps when excited','Hugs a stuffed doll or other toy','Shows you affection (hugs, cuddles, or kisses you)'],
+ language:['Tries to say one or two words besides “mama” or “dada,” like “ba” for ball','Looks at a familiar object when you name it','Follows directions given with both a gesture and words','Points to ask for something or to get help'],
+ cognitive:['Tries to use things the right way, like a phone, cup, or book','Stacks at least two small objects, like blocks'],
+ movement:['Takes a few steps on their own','Uses fingers to feed themselves some food']}},
+{m:18, label:'18 months', cats:{
+ social:['Moves away from you, but looks to make sure you’re close by','Points to show you something interesting','Puts hands out for you to wash them','Looks at a few pages in a book with you','Helps you dress them (pushes arm through a sleeve, lifts a foot)'],
+ language:['Tries to say three or more words besides “mama” or “dada”','Follows one-step directions without any gestures, like handing you a toy when you say “give it to me”'],
+ cognitive:['Copies you doing chores, like sweeping with a broom','Plays with toys in a simple way, like pushing a toy car'],
+ movement:['Walks without holding on to anyone or anything','Scribbles','Drinks from a cup without a lid (may spill sometimes)','Feeds themselves with their fingers','Tries to use a spoon','Climbs on and off a couch or chair without help']}},
+{m:24, label:'2 years', cats:{
+ social:['Notices when others are hurt or upset, like pausing or looking sad when someone is crying','Looks at your face to see how to react in a new situation'],
+ language:['Points to things in a book when you ask, like “Where is the bear?”','Says at least two words together, like “More milk”','Points to at least two body parts when you ask','Uses more gestures than waving and pointing, like blowing a kiss or nodding yes'],
+ cognitive:['Holds something in one hand while using the other, like holding a container and taking off the lid','Tries to use switches, knobs, or buttons on a toy','Plays with more than one toy at the same time, like putting toy food on a toy plate'],
+ movement:['Kicks a ball','Runs','Walks (not climbs) up a few stairs with or without help','Eats with a spoon']}},
+{m:30, label:'2½ years', cats:{
+ social:['Plays next to other children and sometimes plays with them','Shows you what they can do by saying “Look at me!”','Follows simple routines when told, like helping to pick up toys at “clean-up time”'],
+ language:['Says about 50 words','Says two or more words together, with one action word, like “Doggie run”','Names things in a book when you point and ask','Says words like “I,” “me,” or “we”'],
+ cognitive:['Uses things to pretend, like feeding a block to a doll as if it were food','Shows simple problem-solving, like standing on a small stool to reach something','Follows two-step instructions like “Put the toy down and close the door”','Shows they know at least one color, like pointing to a red crayon when you ask'],
+ movement:['Uses hands to twist things, like turning doorknobs or unscrewing lids','Takes some clothes off by themselves, like loose pants or an open jacket','Jumps off the ground with both feet','Turns book pages one at a time when you read together']}},
+{m:36, label:'3 years', cats:{
+ social:['Calms down within 10 minutes after you leave, like at a childcare drop-off','Notices other children and joins them to play'],
+ language:['Talks with you in conversation with at least two back-and-forth exchanges','Asks “who,” “what,” “where,” or “why” questions','Says what action is happening in a picture, like “running” or “eating”','Says their first name when asked','Talks well enough for others to understand most of the time'],
+ cognitive:['Draws a circle when you show them how','Avoids touching hot objects, like a stove, when you warn them'],
+ movement:['Strings items together, like large beads or macaroni','Puts on some clothes by themselves, like loose pants or a jacket','Uses a fork']}},
+{m:48, label:'4 years', cats:{
+ social:['Pretends to be something else during play, like a teacher, superhero, or dog','Asks to go play with children if none are around','Comforts others who are hurt or sad','Avoids danger, like not jumping from tall heights at the playground','Likes to be a “helper”','Changes behavior based on where they are (library vs. playground)'],
+ language:['Says sentences with four or more words','Says some words from a song, story, or nursery rhyme','Talks about at least one thing that happened during the day','Answers simple questions like “What is a coat for?”'],
+ cognitive:['Names a few colors of items','Tells what comes next in a well-known story','Draws a person with three or more body parts'],
+ movement:['Catches a large ball most of the time','Serves themselves food or pours water, with adult supervision','Unbuttons some buttons','Holds a crayon or pencil between fingers and thumb, not in a fist']}},
+{m:60, label:'5 years', cats:{
+ social:['Follows rules or takes turns when playing games with other children','Sings, dances, or acts for you','Does simple chores at home, like matching socks or clearing the table'],
+ language:['Tells a story they heard or made up, with at least two events','Answers simple questions about a book or story after you read it together','Keeps a conversation going with more than three back-and-forth exchanges','Uses or recognizes simple rhymes'],
+ cognitive:['Counts to 10','Names some numbers between 1 and 5 when you point to them','Uses words about time, like “yesterday,” “tomorrow,” “morning,” or “night”','Pays attention for 5 to 10 minutes during activities (screen time doesn’t count)','Writes some letters in their name','Names some letters when you point to them'],
+ movement:['Buttons some buttons','Hops on one foot']}}
+];
+const BRACKETS = MILESTONES.map(b => b.m);
+
+/* ---------- data: daily activity ideas by age band ---------- */
+const ACTIVITIES = [
+{from:0,to:2,list:[
+ {e:'🤱',t:'Tummy time on your chest',d:'A few minutes, a few times a day. Builds neck strength — and your face is the reward.'},
+ {e:'🎨',t:'High-contrast staring',d:'Hold bold black-and-white patterns 8–12 inches away. That’s exactly how far new eyes can focus.'},
+ {e:'🗣️',t:'Narrate everything',d:'Diaper changes, coffee making, laundry. Hearing your voice is how language starts, months before words.'},
+ {e:'🎵',t:'Sing anything',d:'Off-key totally allowed. Melody plus your voice is the original soothing machine.'},
+ {e:'🪞',t:'Face time',d:'Slow, exaggerated expressions up close. Watch for the moment those eyes start studying your mouth.'},
+ {e:'👣',t:'Bicycle legs',d:'Gently pedal those legs during changes. Helps gas and builds body awareness.'},
+ {e:'🌤️',t:'A daily outside minute',d:'Light and fresh air help set day/night rhythm — theirs and yours.'},
+ {e:'🤲',t:'Skin-to-skin',d:'Still one of the most regulating things you can do: heartbeat, temperature, and breathing all sync.'}]},
+{from:2,to:4,list:[
+ {e:'🪀',t:'Reach-and-bat games',d:'Dangle a toy just within swatting range. Misses are practice, not failure.'},
+ {e:'😆',t:'The laugh hunt',d:'Gentle surprises: belly raspberries, peekaboo, silly sounds. Chuckles are coming.'},
+ {e:'🗣️',t:'Serve and return',d:'When they coo, coo back — then pause and wait. That pause teaches conversation.'},
+ {e:'🪞',t:'Mirror sessions',d:'Babies this age are fascinated by that “other baby.”'},
+ {e:'🤸',t:'Tummy-time rounds',d:'A few short rounds a day. Forearm push-ups now, rolling later.'},
+ {e:'📖',t:'First books',d:'Board books with big faces and bold shapes. It’s about lap time and your voice, not plot.'},
+ {e:'✋',t:'Hand discovery',d:'They just found their hands. Offer textures to grip: soft, crinkly, smooth.'},
+ {e:'🎶',t:'Dance holds',d:'Sway and dip to music. Gentle motion is brain food.'}]},
+{from:4,to:6,list:[
+ {e:'🥏',t:'Grab practice',d:'Offer toys slightly out of reach, from different sides. Reaching builds coordination.'},
+ {e:'🙈',t:'Peekaboo, early edition',d:'Face behind hands, quick reveal. Plants the idea that hidden doesn’t mean gone.'},
+ {e:'🔄',t:'Rolling runway',d:'Clear a blanket, put a toy just out of reach to the side, cheer every attempt.'},
+ {e:'💬',t:'Babble back',d:'Echo their sounds, then add one: “ba!” → “ba-ba!” Sounds are learning to have partners.'},
+ {e:'🪑',t:'Supported sitting',d:'On your lap or with pillows, in short rounds. Core work disguised as cuddles.'},
+ {e:'🍽️',t:'Watch-you-eat time',d:'Pull the baby seat up to family meals. Interest in your food is a readiness sign.'},
+ {e:'🧺',t:'Texture tour',d:'The towel, the cold spoon, the fuzzy blanket — narrate each one.'},
+ {e:'📚',t:'Same book, again',d:'Repetition is how babies learn. Boring for you means perfect for them.'}]},
+{from:6,to:9,list:[
+ {e:'🫣',t:'Hide-and-find',d:'Hide a toy under a cloth while they watch, then let them find it. Peak peekaboo season.'},
+ {e:'🥣',t:'Two-hand banging',d:'Cups, blocks, spoons. Loud, yes — also two sides of the brain learning to work together.'},
+ {e:'🐛',t:'Crawl bait',d:'Favorite toy just out of reach. Your open arms work even better.'},
+ {e:'👋',t:'Gesture practice',d:'Wave bye-bye, clap, arms-up — every time. One day they’ll do it first.'},
+ {e:'🍌',t:'Finger-food practice',d:'Soft pinchable bits build the pincer grasp (and independence, and mess).'},
+ {e:'📖',t:'Point-and-name books',d:'“Where’s the dog? THERE’s the dog!” Naming quietly builds the word bank.'},
+ {e:'🪇',t:'Container play',d:'Putting things in, dumping things out, forever. That’s physics class.'},
+ {e:'🎶',t:'Action songs',d:'Itsy Bitsy Spider, Row Your Boat. Predictable songs are hilarious at this age.'}]},
+{from:9,to:12,list:[
+ {e:'🚶',t:'Cruising course',d:'Couch to table to chair while you spot. First steps are being assembled.'},
+ {e:'🫵',t:'Follow the point',d:'When they point, name it and add a detail: “Bird! A little brown bird.”'},
+ {e:'🧱',t:'Stack and crash',d:'You stack, they demolish, then swap. Cause and effect plus turn-taking.'},
+ {e:'🎁',t:'Simple instructions',d:'“Give me the ball,” with a reaching hand. Understanding arrives long before speech.'},
+ {e:'🥤',t:'Open-cup sips',d:'A splash of water in a real cup while you hold it. Spills are the curriculum.'},
+ {e:'🙌',t:'Games with turns',d:'Pat-a-cake and anything with a “your move” moment is social rocket fuel.'},
+ {e:'📦',t:'Treasure basket',d:'Safe household stuff beats most toys: a whisk, a scarf, a wooden spoon.'},
+ {e:'🛁',t:'Pour station',d:'Cups in the bath or a towel-lined bin. Volume, gravity, cause, effect.'}]},
+{from:12,to:18,list:[
+ {e:'👟',t:'Walking practice, their way',d:'Push toys, your fingers, barefoot time. Wobbling is the workout.'},
+ {e:'🖍️',t:'First scribbles',d:'Chunky crayon, big paper, zero expectations.'},
+ {e:'📚',t:'Book choices',d:'Offer two, let them pick. Choosing is a skill; rereading is a feature.'},
+ {e:'🧸',t:'Pretend basics',d:'Feed the bear, put dolly to sleep. Pretend play is thinking practice.'},
+ {e:'🧩',t:'Body parts game',d:'“Where’s your nose?” Touch, name, laugh, repeat.'},
+ {e:'🪣',t:'Chores as play',d:'A safe spoon to stir, a cloth to wipe, socks to un-sort. They want IN.'},
+ {e:'🎯',t:'Point-and-ask walks',d:'Slow walks where they set the route and you name what they point at.'},
+ {e:'🥄',t:'Spoon practice',d:'Pre-loaded spoons at meals. Half arrives; all of it teaches.'}]},
+{from:18,to:24,list:[
+ {e:'🗣️',t:'Add one word',d:'Expand what they say: “Milk” → “More milk? Cold milk!” One word past theirs.'},
+ {e:'⚽',t:'Kick and chase',d:'Balls of all sizes. Kicking, throwing, chasing — full-body coordination.'},
+ {e:'🎨',t:'Sorting games',d:'Big pom-poms into muffin tins by color. Sorting is early math.'},
+ {e:'📖',t:'Question reading',d:'“Where’s the moon?” Let them point, hunt, and eventually answer.'},
+ {e:'🧗',t:'Climbing time',d:'Playground, cushions, stairs with you behind. Slightly-risky play builds judgment.'},
+ {e:'👗',t:'Dressing helpers',d:'Arms in sleeves, shoes off. Slower than doing it yourself — that’s the point.'},
+ {e:'🫖',t:'Pretend tea party',d:'Pouring, stirring, and serving imaginary tea to very real bears.'},
+ {e:'🎵',t:'Freeze dance',d:'Music on, music off, everybody freeze. Impulse control in disguise.'}]},
+{from:24,to:30,list:[
+ {e:'🧱',t:'Building together',d:'Towers and garages. Narrate plans: “What if we add one more?”'},
+ {e:'👯',t:'Parallel play dates',d:'Playing NEXT to another kid is real socializing at this age.'},
+ {e:'🖐️',t:'Two-step missions',d:'“Get your shoes and put them by the door.” A working-memory workout.'},
+ {e:'🎨',t:'Color hunts',d:'“Find something red in this room.” Colors, scanning, vocabulary.'},
+ {e:'✂️',t:'Kitchen jobs',d:'Tearing lettuce, stirring, sprinkling cheese. Real work beats toy work.'},
+ {e:'📚',t:'Story participation',d:'Pause before a word they know and let them fill it in.'},
+ {e:'🐸',t:'Jumping practice',d:'Off the bottom step, over a crack, both feet. Landing is the skill.'},
+ {e:'🎭',t:'Name the feeling',d:'“You’re frustrated because the tower fell.” Naming feelings is step one to managing them.'}]},
+{from:30,to:36,list:[
+ {e:'🧩',t:'Real puzzles',d:'4–12 chunky pieces. Rotate, try, fail, rotate again — pure problem-solving.'},
+ {e:'🎨',t:'Draw-together time',d:'You draw a circle, they copy. Faces come next.'},
+ {e:'🧵',t:'Threading',d:'Big beads on a shoelace. Focus plus fine motor.'},
+ {e:'🗣️',t:'Conversation volleys',d:'Aim for two or three back-and-forths on their topic. Follow their lead.'},
+ {e:'🥸',t:'Pretend scenarios',d:'Doctor, shop, kitchen. Give the play a problem: “The bear is sick!”'},
+ {e:'🧦',t:'Getting-dressed practice',d:'Loose pants, jackets, velcro shoes — practiced before you’re in a rush.'},
+ {e:'🔢',t:'Count everything',d:'Stairs, blueberries, ducks. Numbers in real life stick better than drills.'},
+ {e:'🌳',t:'Obstacle walks',d:'Curbs to balance on, lines to jump, logs to climb. The sidewalk is a free gym.'}]},
+{from:36,to:48,list:[
+ {e:'📖',t:'Story stretching',d:'“What do you think happens next?” before turning the page.'},
+ {e:'🎨',t:'Person drawing',d:'Ask for a drawing of you or them — count what shows up. Head! Legs! That’s development.'},
+ {e:'🎲',t:'First board games',d:'Simple turn-taking games. Losing gracefully is a skill under construction.'},
+ {e:'✂️',t:'Scissor practice',d:'Kid scissors and old magazines are fine-motor gold.'},
+ {e:'🏃',t:'Ball skills',d:'Catch with a big soft ball; kick at targets.'},
+ {e:'👩‍🍳',t:'Recipe helper',d:'Pouring, measuring, mixing: math and following directions, disguised as muffins.'},
+ {e:'🎭',t:'Costume box',d:'Old hats, scarves, bags. Pretending to be others builds empathy.'},
+ {e:'❓',t:'Why-question time',d:'Answer some, volley some back: “Hmm — why do YOU think the moon follows us?”'}]},
+{from:48,to:61,list:[
+ {e:'🔤',t:'Letter spotting',d:'The letters of their name on signs, cereal boxes, license plates.'},
+ {e:'🔢',t:'Number games',d:'Count to 10 forward and backward. “How many if we add one more?”'},
+ {e:'🕰️',t:'Time words',d:'Yesterday, today, tomorrow in daily recaps: “Tomorrow morning we’ll…”'},
+ {e:'🎨',t:'Name writing',d:'Chalk, paint, sand, glitter glue. Letters should be fun, not homework.'},
+ {e:'🎼',t:'Rhyme play',d:'Silly rhyming battles: “cat, bat, splat!”'},
+ {e:'🧹',t:'Real chores',d:'Matching socks, feeding the pet, clearing plates. Competence feels amazing at this age.'},
+ {e:'🎲',t:'Games with rules',d:'Simple card games; hide-and-seek with counting. Rules, turns, patience.'},
+ {e:'🗺️',t:'Tell me about your day',d:'Ask for two events in order. Narrative memory is pre-reading.'}]}
+];
+
+/* ---------- data: what's typical around now ---------- */
+const PHASES = [
+{from:0.4,to:1.5,t:'Growth spurt season',d:'Around 2–3 weeks, many babies suddenly feed more and fuss more for a few days. It’s not something you’re doing wrong — it passes.'},
+{from:1.2,to:2.2,t:'The six-week peak',d:'Crying and evening fussiness tend to peak around week six, then genuinely ease. Hold the line.'},
+{from:2.7,to:3.6,t:'Three-month spurt',d:'Another classic growth window — extra hunger and shorter naps for a few days is normal.'},
+{from:3.5,to:5,t:'The 4-month sleep shift',d:'Sleep cycles mature around now, so naps and nights can fall apart for a bit. Extremely common, genuinely temporary.'},
+{from:4,to:13,t:'Teething window',d:'First teeth arrive anywhere from 4 to 13 months. Drool, chewing, and cranky days come and go long before a tooth shows.'},
+{from:6,to:9,t:'Hidden things exist now',d:'Object permanence is arriving — peekaboo becomes hilarious, and the dropped-spoon game becomes a sport.'},
+{from:8,to:15,t:'Separation feelings',d:'Fussing when you leave is a milestone, not a setback — they now know you exist when you’re gone, and they prefer you. Quick, confident goodbyes help.'},
+{from:8.5,to:10.5,t:'New skills, wilder sleep',d:'Crawling and pulling to stand often disrupt sleep — the brain practices at 2am. It settles.'},
+{from:9,to:18,t:'The walking window',d:'First steps land anywhere from 9 to 18 months, and all of it is normal. Late walkers catch up completely.'},
+{from:17,to:23,t:'Words and big feelings',d:'Vocabulary often takes off now — and so do tantrums. They’re development, not defiance: big feelings, small vocabulary.'},
+{from:23,to:32,t:'The independence era',d:'“No!” and “me do it!” mean their sense of self is growing right on schedule. Offer two choices you can live with.'},
+{from:30,to:44,t:'Why? Why? Why?',d:'Endless questions and sudden food pickiness are both textbook at this age. Keep answering; keep offering.'},
+{from:44,to:60,t:'The big-kid stretch',d:'Rules, friendships, and pretend worlds get rich now. “Watch me!” is the anthem — watching is the work.'}
+];
+
+/* ---------- data: firsts ---------- */
+const FIRST_PRESETS = [
+ {id:'smile',e:'😊',t:'First smile'},{id:'laugh',e:'🤭',t:'First laugh'},
+ {id:'roll',e:'🌀',t:'First roll-over'},{id:'tooth',e:'🦷',t:'First tooth'},
+ {id:'solids',e:'🥑',t:'First taste of food'},{id:'sit',e:'🧸',t:'Sat up alone'},
+ {id:'crawl',e:'🐛',t:'First crawl'},{id:'stand',e:'🧍',t:'Stood up alone'},
+ {id:'steps',e:'👣',t:'First steps'},{id:'word',e:'💬',t:'First word'},
+ {id:'wave',e:'👋',t:'First wave bye-bye'},{id:'clap',e:'👏',t:'First clap'},
+ {id:'sleep',e:'🌙',t:'First full night of sleep'},{id:'haircut',e:'✂️',t:'First haircut'},
+ {id:'swim',e:'💦',t:'First swim'},{id:'trip',e:'✈️',t:'First trip'},
+ {id:'park',e:'🌳',t:'First park day'},{id:'call',e:'📞',t:'First video call with family'}
+];
+
+/* ---------- store ---------- */
+let mem = null;
+function load(){
+  try{ const raw = localStorage.getItem(LS_KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  return null;
+}
+let S = load() || { v:1, profile:null, checks:{}, firsts:[], customDays:[], settings:{theme:'auto', installDismissed:false, lastBackup:null} };
+S.settings = Object.assign({theme:'auto', installDismissed:false, lastBackup:null}, S.settings||{});
+function save(){
+  try{ localStorage.setItem(LS_KEY, JSON.stringify(S)); }
+  catch(e){ mem = S; }
+}
+
+/* ---------- date utils (all local-time, no UTC surprises) ---------- */
+const DAY = 864e5;
+const p2 = n => String(n).padStart(2,'0');
+const isoOf = d => `${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`;
+const fromISO = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); };
+const today0 = () => { const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); };
+const diffDays = (a,b) => Math.round((b - a) / DAY);
+const fmtLong = d => d.toLocaleDateString(undefined, {weekday:'long', month:'long', day:'numeric'});
+const fmtMed  = d => d.toLocaleDateString(undefined, {weekday:'short', month:'short', day:'numeric'});
+const fmtShort= d => d.toLocaleDateString(undefined, {month:'short', day:'numeric'});
+function addMonthsClamp(d, n){
+  const y = d.getFullYear(), m = d.getMonth() + n, day = d.getDate();
+  const last = new Date(y, m+1, 0).getDate();
+  return new Date(y, m, Math.min(day, last));
+}
+function calAge(dob, now){
+  let y = now.getFullYear() - dob.getFullYear();
+  let m = now.getMonth() - dob.getMonth();
+  let d = now.getDate() - dob.getDate();
+  if (d < 0){ d += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); m--; }
+  if (m < 0){ m += 12; y--; }
+  return {y, m, d, months: y*12+m};
+}
+const ordinal = n => n + (n%10==1&&n%100!=11?'st':n%10==2&&n%100!=12?'nd':n%10==3&&n%100!=13?'rd':'th');
+function mulberry(seed){ return function(){ seed|=0; seed = seed+0x6D2B79F5|0; let t = Math.imul(seed^seed>>>15, 1|seed); t = t+Math.imul(t^t>>>7, 61|t)^t; return ((t^t>>>14)>>>0)/4294967296; } }
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------- derived ---------- */
+function ages(){
+  const t = today0();
+  const dob = fromISO(S.profile.dob);
+  const days = diffDays(dob, t);
+  const cal = calAge(dob, t);
+  const early = S.profile.earlyWeeks || 0;
+  let adj = null;
+  if (early > 0 && cal.months < 24){
+    const dobAdj = new Date(dob.getTime() + early*7*DAY);
+    const adjDays = Math.max(0, diffDays(dobAdj, t));
+    adj = { cal: calAge(dobAdj, t), days: adjDays };
+  }
+  const effMonths = adj ? (adj.cal.months + adj.cal.d/30) : (cal.months + cal.d/30);
+  return { t, dob, days, weeks: Math.floor(days/7), cal, adj, effMonths };
+}
+function currentBracket(effMonths){
+  return BRACKETS.find(b => effMonths <= b) || 60;
+}
+function bracketProgress(m){
+  const b = MILESTONES.find(x => x.m === m);
+  let total = 0, done = 0;
+  for (const c in b.cats){ b.cats[c].forEach((_,i) => { total++; if (S.checks[`${m}:${c}:${i}`]) done++; }); }
+  return {total, done};
+}
+function specialDays(){
+  const dob = fromISO(S.profile.dob);
+  const name = S.profile.name;
+  const list = [];
+  for (let n=1; n<=11; n++) list.push({date: addMonthsClamp(dob,n), e:'🎈', t:`${n}-month day`});
+  list.push({date: new Date(dob.getTime()+99*DAY), e:'💯', t:`100 days of ${name}`});
+  list.push({date: new Date(dob.getTime()+999*DAY), e:'✨', t:`1,000 days of ${name}`});
+  for (let k=0; k<5; k++) list.push({date: addMonthsClamp(dob, k*12+6), e:'🌗', t: k===0 ? '½ birthday' : `${k}½ birthday`});
+  for (let k=1; k<=5; k++) list.push({date: addMonthsClamp(dob, k*12), e:'🎂', t:`${ordinal(k)} birthday`});
+  const t = today0();
+  (S.customDays||[]).forEach(cd => {
+    let d = fromISO(cd.date);
+    if (cd.yearly){
+      let next = new Date(t.getFullYear(), d.getMonth(), Math.min(d.getDate(), new Date(t.getFullYear(), d.getMonth()+1,0).getDate()));
+      if (diffDays(t, next) < 0) next = new Date(t.getFullYear()+1, d.getMonth(), d.getDate());
+      list.push({date: next, e: cd.e||'💖', t: cd.t, custom: cd.id, yearly:true});
+      if (diffDays(t, d) < 0 && d.getFullYear() !== next.getFullYear()) {} // original past occurrence not listed
+    } else {
+      list.push({date: d, e: cd.e||'💖', t: cd.t, custom: cd.id});
+    }
+  });
+  const upcoming = list.filter(x => diffDays(t, x.date) >= 0).sort((a,b) => a.date-b.date);
+  const past = list.filter(x => diffDays(t, x.date) < 0).sort((a,b) => b.date-a.date);
+  return {upcoming, past};
+}
+function todaysActivities(){
+  const a = ages();
+  const band = ACTIVITIES.find(b => a.effMonths >= b.from && a.effMonths < b.to) || ACTIVITIES[ACTIVITIES.length-1];
+  const seed = diffDays(new Date(2024,0,1), a.t) + (state.shuffle*7919);
+  const rnd = mulberry(seed);
+  const pool = band.list.slice();
+  for (let i=pool.length-1; i>0; i--){ const j = Math.floor(rnd()*(i+1)); [pool[i],pool[j]] = [pool[j],pool[i]]; }
+  return pool.slice(0,3);
+}
+function activePhases(){
+  const a = ages();
+  return PHASES.filter(p => a.effMonths >= p.from && a.effMonths < p.to).slice(0,2);
+}
+
+/* ---------- tiny framework ---------- */
+const app = document.getElementById('app');
+const tabbar = document.getElementById('tabbar');
+const state = { view:'today', bracket:null, shuffle:0, deferredPrompt:null };
+
+function nav(view){
+  state.view = view;
+  location.hash = view;
+  render();
+  window.scrollTo({top:0});
+}
+window.addEventListener('hashchange', () => {
+  const v = location.hash.replace('#','') || 'today';
+  if (v !== state.view && ['today','milestones','firsts','days','more'].includes(v)){ state.view = v; render(); }
+});
+tabbar.addEventListener('click', e => {
+  const b = e.target.closest('[data-nav]');
+  if (b) nav(b.dataset.nav);
+});
+
+function toast(msg){
+  document.querySelectorAll('.toast').forEach(t => t.remove());
+  const t = document.createElement('div');
+  t.className = 'toast'; t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2200);
+}
+
+let sheetEl = null, backEl = null;
+function openSheet(html){
+  closeSheet();
+  backEl = document.createElement('div'); backEl.className = 'backdrop';
+  backEl.addEventListener('click', closeSheet);
+  sheetEl = document.createElement('div'); sheetEl.className = 'sheet';
+  sheetEl.setAttribute('role','dialog'); sheetEl.setAttribute('aria-modal','true');
+  sheetEl.innerHTML = '<div class="grab"></div>' + html;
+  document.body.append(backEl, sheetEl);
+  const f = sheetEl.querySelector('input,select,textarea,button');
+  if (f) f.focus({preventScroll:true});
+}
+function closeSheet(){
+  if (sheetEl) sheetEl.remove(); if (backEl) backEl.remove();
+  sheetEl = backEl = null;
+}
+
+/* ---------- confetti ---------- */
+const fx = document.getElementById('fx');
+const fctx = fx.getContext('2d');
+let parts = [], fxRunning = false;
+function confetti(x, y){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  fx.width = innerWidth * devicePixelRatio; fx.height = innerHeight * devicePixelRatio;
+  fctx.scale(devicePixelRatio, devicePixelRatio);
+  const colors = ['#f2a97e','#a9c7a1','#e8c87e','#f5efe6','#e08856'];
+  for (let i=0; i<70; i++){
+    parts.push({
+      x: x ?? innerWidth/2, y: y ?? innerHeight*0.3,
+      vx: (Math.random()-.5)*7, vy: -Math.random()*8-2,
+      s: Math.random()*5+3, r: Math.random()*Math.PI,
+      vr: (Math.random()-.5)*.3, c: colors[i%colors.length],
+      life: 1, circle: Math.random()>.5
+    });
+  }
+  if (!fxRunning){ fxRunning = true; requestAnimationFrame(tick); }
+}
+function tick(){
+  fctx.clearRect(0,0,innerWidth,innerHeight);
+  parts = parts.filter(p => p.life > 0);
+  if (!parts.length){ fxRunning = false; return; }
+  for (const p of parts){
+    p.x += p.vx; p.y += p.vy; p.vy += .25; p.r += p.vr; p.life -= .012;
+    fctx.save(); fctx.globalAlpha = Math.max(0,p.life); fctx.translate(p.x,p.y); fctx.rotate(p.r);
+    fctx.fillStyle = p.c;
+    if (p.circle){ fctx.beginPath(); fctx.arc(0,0,p.s/2,0,7); fctx.fill(); }
+    else fctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);
+    fctx.restore();
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ---------- views ---------- */
+function render(){
+  applyTheme();
+  if (!S.profile){ tabbar.hidden = true; app.innerHTML = viewOnboarding(); return; }
+  tabbar.hidden = false;
+  tabbar.querySelectorAll('[data-nav]').forEach(b =>
+    b.dataset.nav === state.view ? b.setAttribute('aria-current','page') : b.removeAttribute('aria-current'));
+  const views = {today:viewToday, milestones:viewMilestones, firsts:viewFirsts, days:viewDays, more:viewMore};
+  app.innerHTML = (views[state.view] || viewToday)();
+}
+
+function viewOnboarding(){
+  return `<div class="onb">
+    <div class="moon">🌙</div>
+    <h1 class="display">Little Days</h1>
+    <p class="lede">Milestones, daily ideas, and every little first — free, private, and yours.</p>
+    <form onsubmit="return startProfile(event)">
+      <div class="field"><label for="ob-name">Baby’s name</label>
+        <input id="ob-name" type="text" required maxlength="30" placeholder="e.g. Nora" autocomplete="off"></div>
+      <div class="field"><label for="ob-dob">Birthday</label>
+        <input id="ob-dob" type="date" required max="${isoOf(today0())}"></div>
+      <details style="margin-bottom:16px">
+        <summary style="cursor:pointer; color:var(--muted); font-size:14px; font-weight:600; min-height:32px">Born early? Adjust for it</summary>
+        <div class="field" style="margin-top:10px"><label for="ob-early">Weeks early</label>
+          <select id="ob-early"><option value="0">Not early / less than 3 weeks</option>
+          ${[3,4,5,6,7,8,9,10,11,12,13,14,15,16].map(w=>`<option value="${w}">${w} weeks early</option>`).join('')}</select>
+        </div>
+      </details>
+      <button class="btn" type="submit" style="width:100%">Let’s go 🎉</button>
+    </form>
+    <p class="fine">Everything stays in this browser on this device — no account, no cloud, no ads, ever. You can export a backup anytime from the More tab.</p>
+  </div>`;
+}
+window.startProfile = function(ev){
+  ev.preventDefault();
+  const name = document.getElementById('ob-name').value.trim();
+  const dob = document.getElementById('ob-dob').value;
+  const early = Number(document.getElementById('ob-early')?.value || 0);
+  if (!name || !dob) return false;
+  S.profile = { name, dob, earlyWeeks: early };
+  save(); render(); confetti();
+  return false;
+};
+
+function heroAge(){
+  const a = ages();
+  if (a.days < 35) return `${a.days} day${a.days===1?'':'s'} old`;
+  if (a.cal.months < 24){
+    const m = a.cal.months;
+    return `${m} month${m===1?'':'s'}, ${a.cal.d} day${a.cal.d===1?'':'s'}`;
+  }
+  return `${a.cal.y} year${a.cal.y===1?'':'s'}, ${a.cal.m} month${a.cal.m===1?'':'s'}`;
+}
+
+function viewToday(){
+  const a = ages();
+  const name = esc(S.profile.name);
+  const sd = specialDays();
+  const next = sd.upcoming[0];
+  const acts = todaysActivities();
+  const phases = activePhases();
+  const cb = currentBracket(a.effMonths);
+  const bLabel = MILESTONES.find(b=>b.m===cb).label;
+  const prog = bracketProgress(cb);
+  const recent = (S.firsts||[]).filter(f => f.date && diffDays(fromISO(f.date), a.t) <= 7).sort((x,y)=>y.date.localeCompare(x.date))[0];
+  const showInstall = !S.settings.installDismissed && !isStandalone();
+  const chips = [];
+  if (a.days >= 35 && a.cal.months < 24) chips.push(`${a.weeks} weeks`);
+  chips.push(`${a.days.toLocaleString()} days`);
+  if (a.cal.months >= 24) chips.push(`${a.cal.months} months`);
+  if (a.adj) chips.push(`adjusted: ${a.adj.cal.months} mo, ${a.adj.cal.d} d`);
+
+  return `
+  <header class="hero">
+    <div class="halo"></div>
+    <div class="brand">
+      <span class="eyebrow">Little Days</span>
+      <span class="date">${fmtLong(a.t)}</span>
+    </div>
+    <p class="who">${name} is</p>
+    <h1 class="age display">${heroAge()}</h1>
+    <div class="chips">${chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>
+  </header>
+  <div class="grid2">
+  ${next ? `<section class="card" style="display:flex;align-items:center;gap:13px">
+      <span style="font-size:30px">${next.e}</span>
+      <div style="flex:1;min-width:0"><h2>${esc(next.t)}</h2>
+        <p class="sub" style="margin:0">${fmtMed(next.date)}</p></div>
+      ${countChip(a.t, next.date)}
+    </section>` : ''}
+  ${showInstall ? `<section class="card" style="display:flex;align-items:center;gap:12px">
+      <span style="font-size:26px">📲</span>
+      <div style="flex:1"><h2>Put it on your home screen</h2>
+        <p class="sub" style="margin:0">Works like an app — even offline.</p></div>
+      <div class="row">
+        <button class="btn small" data-act="install">How</button>
+        <button class="btn quiet small" data-act="install-dismiss" aria-label="Dismiss">✕</button>
+      </div>
+    </section>` : ''}
+  <section class="card span2">
+    <div class="row between">
+      <div><h2>Today with ${name}</h2>
+        <p class="sub">Three little ideas — no pressure, pick one.</p></div>
+      <button class="btn quiet small" data-act="shuffle">↻ More ideas</button>
+    </div>
+    <div class="acts">
+      ${acts.map(x=>`<div class="act"><span class="e">${x.e}</span><div><b>${x.t}</b><p>${x.d}</p></div></div>`).join('')}
+    </div>
+  </section>
+  ${phases.length ? `<section class="card span2" style="background:transparent;box-shadow:none;border-style:dashed;padding-bottom:8px">
+    <h2 style="margin-bottom:10px">Around this age</h2>
+    ${phases.map(p=>`<div class="act phase" style="margin-bottom:8px"><div><b>${p.t}</b><p>${p.d}</p></div></div>`).join('')}
+  </section>` : ''}
+  <section class="card">
+    <h2>“By ${bLabel}” checklist</h2>
+    <p class="sub">${prog.done} of ${prog.total} spotted so far</p>
+    <div class="bar" style="margin-bottom:12px"><i style="width:${prog.total?Math.round(prog.done/prog.total*100):0}%"></i></div>
+    <button class="btn ghost small" data-nav2="milestones">Open checklist</button>
+  </section>
+  <section class="card">
+    ${recent
+      ? `<h2>Recently logged</h2><p class="sub" style="margin:0">${recent.e} ${esc(recent.t)} — ${fmtShort(fromISO(recent.date))} 💛</p>
+         <button class="btn quiet small" data-nav2="firsts" style="margin-top:8px">All her firsts →</button>`
+      : `<h2>Catch a first ✨</h2><p class="sub" style="margin:0 0 8px">First smile, first laugh, first steps — log them the day they happen.</p>
+         <button class="btn ghost small" data-nav2="firsts">Open firsts</button>`}
+  </section>
+  </div>`;
+}
+function countChip(t, d){
+  const n = diffDays(t, d);
+  if (n === 0) return '<span class="chip on">Today! 🎉</span>';
+  if (n === 1) return '<span class="chip on">tomorrow</span>';
+  return `<span class="chip">in ${n} days</span>`;
+}
+
+function viewMilestones(){
+  const a = ages();
+  const cur = currentBracket(a.effMonths);
+  if (state.bracket == null) state.bracket = cur;
+  const sel = MILESTONES.find(b => b.m === state.bracket);
+  const prog = bracketProgress(sel.m);
+  const pct = prog.total ? Math.round(prog.done/prog.total*100) : 0;
+  return `
+  <header style="padding:10px 2px 12px">
+    <h1 class="display" style="font-size:30px;margin:0 0 4px;font-weight:600">Milestones</h1>
+    <p class="note" style="max-width:46ch">Things most babies — 75% or more — do by each age, from the CDC’s checklists. Every baby grows at their own pace; you know ${esc(S.profile.name)} best.${a.adj?` <b>Using her adjusted age</b> (born ${S.profile.earlyWeeks} weeks early).`:''}</p>
+  </header>
+  <div class="pills" role="tablist">
+    ${MILESTONES.map(b => {
+      const p = bracketProgress(b.m);
+      return `<button class="pill" role="tab" aria-pressed="${b.m===state.bracket}" data-bracket="${b.m}">
+        ${b.m===cur?'<span class="now"></span>':''}${b.label}
+        ${p.done?`<span class="pct">${Math.round(p.done/p.total*100)}%</span>`:''}</button>`;
+    }).join('')}
+  </div>
+  <section class="card">
+    <div class="row between" style="margin-bottom:6px">
+      <h2 style="font-size:18px">By ${sel.label}</h2>
+      <span class="chip ${prog.done===prog.total?'on':''}">${prog.done} / ${prog.total}</span>
+    </div>
+    <div class="bar"><i style="width:${pct}%"></i></div>
+    ${Object.keys(sel.cats).map(c => `
+      <div class="cat">${CATS[c].e} ${CATS[c].n}</div>
+      ${sel.cats[c].map((item,i) => {
+        const key = `${sel.m}:${c}:${i}`;
+        const done = S.checks[key];
+        return `<button class="check" aria-pressed="${!!done}" data-check="${key}">
+          <span class="box">✓</span>
+          <span class="lbl">${item}${done?`<span class="when">✓ ${fmtShort(fromISO(done))}</span>`:''}</span>
+        </button>`;
+      }).join('')}`).join('')}
+  </section>
+  ${earlierUnchecked(cur) ? `<section class="card" style="background:var(--accent-soft);border:none">
+    <h2>A gentle note</h2>
+    <p class="note" style="margin:0">${earlierUnchecked(cur)} item${earlierUnchecked(cur)===1?' is':'s are'} still unchecked on earlier lists. No panic — babies take wildly different paths. It’s simply a good thing to mention at your next checkup.</p>
+  </section>` : ''}
+  <p class="note center" style="padding:4px 12px 12px">If you’re ever concerned, ask your pediatrician about a developmental screening — acting early is never wrong, and neither is asking.<br>
+  <a href="https://www.cdc.gov/act-early/milestones/index.html" target="_blank" rel="noopener">CDC · Learn the Signs. Act Early.</a></p>`;
+}
+function earlierUnchecked(cur){
+  let n = 0;
+  MILESTONES.filter(b => b.m < cur).forEach(b => {
+    for (const c in b.cats) b.cats[c].forEach((_,i) => { if (!S.checks[`${b.m}:${c}:${i}`]) n++; });
+  });
+  return n;
+}
+
+function viewFirsts(){
+  const logged = S.firsts || [];
+  const byId = Object.fromEntries(logged.map(f => [f.id, f]));
+  const customs = logged.filter(f => f.custom);
+  return `
+  <header style="padding:10px 2px 12px">
+    <h1 class="display" style="font-size:30px;margin:0 0 4px;font-weight:600">Firsts</h1>
+    <p class="note">The moments you’ll want the exact date for, forever.</p>
+  </header>
+  <div class="firsts">
+    ${FIRST_PRESETS.map(p => {
+      const f = byId[p.id];
+      return f && f.date
+        ? `<button class="first" data-first="${p.id}"><span class="e">${p.e}</span><b>${p.t}</b><span class="d">${fmtMed(fromISO(f.date))}</span>${f.note?`<span class="n">“${esc(f.note)}”</span>`:''}</button>`
+        : `<button class="first todo" data-first="${p.id}"><span class="e" style="filter:grayscale(.6);opacity:.7">${p.e}</span><b>${p.t}</b><span class="d" style="color:var(--muted)">＋ log it</span></button>`;
+    }).join('')}
+    ${customs.map(f => `<button class="first" data-first="${f.id}"><span class="e">${f.e}</span><b>${esc(f.t)}</b><span class="d">${f.date?fmtMed(fromISO(f.date)):''}</span>${f.note?`<span class="n">“${esc(f.note)}”</span>`:''}</button>`).join('')}
+    <button class="first todo" data-act="add-first"><span class="e">💛</span><b>Add your own</b><span class="d" style="color:var(--muted)">anything worth remembering</span></button>
+  </div>`;
+}
+
+function viewDays(){
+  const sd = specialDays();
+  const a = ages();
+  const up = sd.upcoming.slice(0, 14);
+  return `
+  <header style="padding:10px 2px 12px">
+    <h1 class="display" style="font-size:30px;margin:0 0 4px;font-weight:600">Special days</h1>
+    <p class="note">Month-days, half birthdays, the big ones — plus any you add.</p>
+  </header>
+  <section class="card">
+    ${up.map(x => dayRow(a.t, x)).join('') || '<p class="note">Nothing upcoming — add a day below.</p>'}
+  </section>
+  <button class="btn ghost" data-act="add-day" style="width:100%">＋ Add a special day</button>
+  ${sd.past.length ? `<section class="card" style="margin-top:14px">
+    <details class="past">
+      <summary>✨ ${sd.past.length} little day${sd.past.length===1?'':'s'} already celebrated</summary>
+      <div style="margin-top:6px">${sd.past.slice(0,20).map(x => dayRow(a.t, x, true)).join('')}</div>
+    </details>
+  </section>` : ''}`;
+}
+function dayRow(t, x, past){
+  const n = diffDays(t, x.date);
+  return `<div class="day">
+    <span class="cal"><span class="mo">${x.date.toLocaleDateString(undefined,{month:'short'})}</span><span class="dd">${x.date.getDate()}</span></span>
+    <div class="t"><b>${x.e} ${esc(x.t)}</b><span>${x.date.toLocaleDateString(undefined,{weekday:'long', year:'numeric'})}</span></div>
+    <span class="in">${past ? `<span class="chip">${Math.abs(n)} days ago</span>` : countChip(t, x.date)}
+    ${x.custom ? `<button class="btn quiet small" data-del-day="${x.custom}" aria-label="Remove ${esc(x.t)}">✕</button>` : ''}</span>
+  </div>`;
+}
+
+function viewMore(){
+  const p = S.profile;
+  const standalone = isStandalone();
+  return `
+  <header style="padding:10px 2px 12px">
+    <h1 class="display" style="font-size:30px;margin:0 0 4px;font-weight:600">More</h1>
+  </header>
+  <section class="card">
+    <h2>Profile</h2>
+    <div class="field" style="margin-top:10px"><label for="pf-name">Name</label>
+      <input id="pf-name" type="text" maxlength="30" value="${esc(p.name)}"></div>
+    <div class="field"><label for="pf-dob">Birthday</label>
+      <input id="pf-dob" type="date" max="${isoOf(today0())}" value="${p.dob}"></div>
+    <div class="field"><label for="pf-early">Born early (weeks)</label>
+      <select id="pf-early">${[0,3,4,5,6,7,8,9,10,11,12,13,14,15,16].map(w=>`<option value="${w}" ${w===(p.earlyWeeks||0)?'selected':''}>${w===0?'Not early / less than 3 weeks':w+' weeks early'}</option>`).join('')}</select></div>
+    <button class="btn small" data-act="save-profile">Save changes</button>
+  </section>
+  <section class="card">
+    <h2>Appearance</h2>
+    <div class="seg" style="margin-top:10px" role="group" aria-label="Theme">
+      ${['auto','light','dark'].map(m=>`<button data-theme-set="${m}" aria-pressed="${(S.settings.theme||'auto')===m}">${m[0].toUpperCase()+m.slice(1)}</button>`).join('')}
+    </div>
+  </section>
+  <section class="card">
+    <h2>App</h2>
+    ${standalone
+      ? '<p class="note" style="margin-top:6px">You’re using the installed app ✓ Works offline.</p>'
+      : `<p class="note" style="margin-top:6px">Install Little Days for the full app feel — home screen icon, no browser bars, works offline.</p>
+         <button class="btn ghost small" data-act="install" style="margin-top:8px">Install / show me how</button>`}
+  </section>
+  <section class="card">
+    <h2>Backup</h2>
+    <p class="note" style="margin-top:6px">Your data lives only in this browser. Export a backup now and then — especially before clearing browser data or switching phones.${S.settings.lastBackup?` Last backup: ${fmtShort(fromISO(S.settings.lastBackup))}.`:''}</p>
+    <div class="row" style="margin-top:10px; flex-wrap:wrap">
+      <button class="btn ghost small" data-act="export">Export file</button>
+      <button class="btn ghost small" data-act="copy">Copy backup</button>
+      <button class="btn ghost small" data-act="import">Import</button>
+      <input id="import-file" type="file" accept="application/json,.json" hidden>
+    </div>
+  </section>
+  <section class="card">
+    <h2>About</h2>
+    <p class="note" style="margin-top:6px">
+      Little Days is a keepsake and a guide, not medical advice. Milestone checklists come from the CDC’s
+      <a href="https://www.cdc.gov/act-early/milestones/index.html" target="_blank" rel="noopener">“Learn the Signs. Act Early.”</a>
+      program (2022 revision) — things most babies (75%+) do by each age. Every child develops at their own pace;
+      questions and concerns belong with your pediatrician.<br><br>
+      No account. No ads. No tracking. Nothing ever leaves this device. · v${VERSION}
+    </p>
+  </section>
+  <section class="card" style="border-color:var(--danger)">
+    <h2 style="color:var(--danger)">Start over</h2>
+    <p class="note" style="margin-top:6px">Erases everything in this app on this device. Export a backup first.</p>
+    <button class="btn danger small" data-act="reset" style="margin-top:8px">Erase all data…</button>
+  </section>`;
+}
+
+/* ---------- sheets ---------- */
+function firstSheet(id){
+  const preset = FIRST_PRESETS.find(p => p.id === id);
+  const existing = (S.firsts||[]).find(f => f.id === id);
+  const t = preset ? preset.t : (existing?existing.t:'');
+  const e = preset ? preset.e : (existing?existing.e:'💛');
+  openSheet(`
+    <h3>${e} ${esc(t)}</h3>
+    <div class="field"><label for="fs-date">When?</label>
+      <input id="fs-date" type="date" max="${isoOf(today0())}" value="${existing&&existing.date?existing.date:isoOf(today0())}"></div>
+    <div class="field"><label for="fs-note">A note for future you (optional)</label>
+      <textarea id="fs-note" rows="2" maxlength="200" placeholder="who was there, what it was like…">${existing&&existing.note?esc(existing.note):''}</textarea></div>
+    <div class="row">
+      <button class="btn" style="flex:1" data-save-first="${id}">Save</button>
+      ${existing&&existing.date?`<button class="btn quiet" data-remove-first="${id}">Remove</button>`:''}
+    </div>`);
+}
+function customFirstSheet(){
+  openSheet(`
+    <h3>💛 A first of your own</h3>
+    <div class="field"><label for="cf-emoji">Emoji</label>
+      <input id="cf-emoji" type="text" maxlength="4" value="💛" style="width:90px"></div>
+    <div class="field"><label for="cf-title">What happened?</label>
+      <input id="cf-title" type="text" maxlength="60" placeholder="First giggle at the dog"></div>
+    <div class="field"><label for="cf-date">When?</label>
+      <input id="cf-date" type="date" max="${isoOf(today0())}" value="${isoOf(today0())}"></div>
+    <div class="field"><label for="cf-note">Note (optional)</label>
+      <textarea id="cf-note" rows="2" maxlength="200"></textarea></div>
+    <button class="btn" style="width:100%" data-act="save-custom-first">Save</button>`);
+}
+function customDaySheet(){
+  openSheet(`
+    <h3>💖 Add a special day</h3>
+    <div class="field"><label for="cd-emoji">Emoji</label>
+      <input id="cd-emoji" type="text" maxlength="4" value="💖" style="width:90px"></div>
+    <div class="field"><label for="cd-title">What is it?</label>
+      <input id="cd-title" type="text" maxlength="60" placeholder="Baptism, first beach trip, Grandma’s visit…"></div>
+    <div class="field"><label for="cd-date">Date</label>
+      <input id="cd-date" type="date" value="${isoOf(today0())}"></div>
+    <div class="field"><label class="row" style="gap:8px; font-weight:600; color:var(--text)">
+      <input id="cd-yearly" type="checkbox" style="width:20px;height:20px"> Repeats every year</label></div>
+    <button class="btn" style="width:100%" data-act="save-custom-day">Add day</button>`);
+}
+function installSheet(){
+  const ua = navigator.userAgent;
+  const isIOS = /iPhone|iPad|iPod/.test(ua);
+  openSheet(`
+    <h3>📲 Install Little Days</h3>
+    ${state.deferredPrompt ? `<button class="btn" style="width:100%; margin-bottom:14px" data-act="install-now">Install now</button>
+      <p class="note">Or do it manually:</p>` : ''}
+    <div class="stack" style="margin-top:6px">
+      ${isIOS
+        ? `<div class="act"><span class="e">1️⃣</span><div><b>Open in Safari</b><p>Installing only works from Safari on iPhone.</p></div></div>
+           <div class="act"><span class="e">2️⃣</span><div><b>Tap the Share button</b><p>The square with the arrow, bottom of the screen.</p></div></div>
+           <div class="act"><span class="e">3️⃣</span><div><b>“Add to Home Screen”</b><p>Scroll down a little to find it, then tap Add.</p></div></div>`
+        : `<div class="act"><span class="e">🤖</span><div><b>Android · Chrome</b><p>Menu (⋮) → “Add to Home screen” → Install.</p></div></div>
+           <div class="act"><span class="e">💻</span><div><b>Desktop · Chrome or Edge</b><p>Click the install icon at the right end of the address bar.</p></div></div>
+           <div class="act"><span class="e">🍎</span><div><b>iPhone · Safari</b><p>Share button → “Add to Home Screen”.</p></div></div>`}
+    </div>`);
+}
+
+/* ---------- actions ---------- */
+document.addEventListener('click', e => {
+  const nav2 = e.target.closest('[data-nav2]'); if (nav2){ nav(nav2.dataset.nav2); return; }
+  const pill = e.target.closest('[data-bracket]'); if (pill){ state.bracket = Number(pill.dataset.bracket); render(); return; }
+  const chk = e.target.closest('[data-check]');
+  if (chk){
+    const key = chk.dataset.check;
+    if (S.checks[key]) delete S.checks[key];
+    else {
+      S.checks[key] = isoOf(today0());
+      const r = chk.getBoundingClientRect();
+      confetti(r.left + 20, r.top + 10);
+    }
+    save(); render(); return;
+  }
+  const first = e.target.closest('[data-first]'); if (first){ firstSheet(first.dataset.first); return; }
+  const saveF = e.target.closest('[data-save-first]');
+  if (saveF){
+    const id = saveF.dataset.saveFirst;
+    const date = document.getElementById('fs-date').value;
+    const note = document.getElementById('fs-note').value.trim();
+    if (!date) return;
+    S.firsts = (S.firsts||[]).filter(f => f.id !== id);
+    const preset = FIRST_PRESETS.find(p => p.id === id);
+    const old = null;
+    S.firsts.push(preset ? {id, e:preset.e, t:preset.t, date, note} : Object.assign({custom:true}, (S._editCustom||{}), {id, date, note}));
+    delete S._editCustom;
+    save(); closeSheet(); render(); confetti(); toast('Saved 💛');
+    return;
+  }
+  const remF = e.target.closest('[data-remove-first]');
+  if (remF){
+    S.firsts = (S.firsts||[]).filter(f => f.id !== remF.dataset.removeFirst);
+    save(); closeSheet(); render(); toast('Removed');
+    return;
+  }
+  const delDay = e.target.closest('[data-del-day]');
+  if (delDay){
+    S.customDays = (S.customDays||[]).filter(d => d.id !== delDay.dataset.delDay);
+    save(); render(); toast('Removed');
+    return;
+  }
+  const themeSet = e.target.closest('[data-theme-set]');
+  if (themeSet){ S.settings.theme = themeSet.dataset.themeSet; save(); render(); return; }
+  const act = e.target.closest('[data-act]');
+  if (!act) return;
+  switch (act.dataset.act){
+    case 'shuffle': state.shuffle++; render(); break;
+    case 'add-first': customFirstSheet(); break;
+    case 'save-custom-first': {
+      const t = document.getElementById('cf-title').value.trim();
+      const date = document.getElementById('cf-date').value;
+      if (!t || !date){ toast('Give it a name and a date'); break; }
+      S.firsts = S.firsts || [];
+      S.firsts.push({ id:'c'+Date.now(), custom:true, e:(document.getElementById('cf-emoji').value.trim()||'💛').slice(0,4), t, date, note:document.getElementById('cf-note').value.trim() });
+      save(); closeSheet(); render(); confetti(); toast('Saved 💛');
+      break;
+    }
+    case 'add-day': customDaySheet(); break;
+    case 'save-custom-day': {
+      const t = document.getElementById('cd-title').value.trim();
+      const date = document.getElementById('cd-date').value;
+      if (!t || !date){ toast('Give it a name and a date'); break; }
+      S.customDays = S.customDays || [];
+      S.customDays.push({ id:'d'+Date.now(), t, date, yearly:document.getElementById('cd-yearly').checked, e:(document.getElementById('cd-emoji').value.trim()||'💖').slice(0,4) });
+      save(); closeSheet(); render(); toast('Added ✓');
+      break;
+    }
+    case 'save-profile': {
+      const name = document.getElementById('pf-name').value.trim();
+      const dob = document.getElementById('pf-dob').value;
+      if (!name || !dob){ toast('Name and birthday are required'); break; }
+      S.profile = { name, dob, earlyWeeks:Number(document.getElementById('pf-early').value||0) };
+      state.bracket = null;
+      save(); render(); toast('Saved ✓');
+      break;
+    }
+    case 'export': {
+      const data = JSON.stringify(S, null, 2);
+      const blob = new Blob([data], {type:'application/json'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `little-days-backup-${isoOf(today0())}.json`;
+      a.click(); URL.revokeObjectURL(a.href);
+      S.settings.lastBackup = isoOf(today0()); save(); render(); toast('Backup exported ✓');
+      break;
+    }
+    case 'copy': {
+      navigator.clipboard.writeText(JSON.stringify(S)).then(
+        () => { S.settings.lastBackup = isoOf(today0()); save(); render(); toast('Backup copied ✓'); },
+        () => toast('Couldn’t copy — try Export instead'));
+      break;
+    }
+    case 'import': document.getElementById('import-file').click(); break;
+    case 'reset':
+      openSheet(`<h3>Erase everything?</h3>
+        <p class="note" style="margin:0 0 16px">This wipes ${esc(S.profile?.name||'baby')}’s data from this device. There is no undo.</p>
+        <div class="row"><button class="btn danger" style="flex:1" data-act="reset-confirm">Yes, erase it all</button>
+        <button class="btn ghost" style="flex:1" data-act="sheet-close">Keep it</button></div>`);
+      break;
+    case 'reset-confirm':
+      S = { v:1, profile:null, checks:{}, firsts:[], customDays:[], settings:{theme:'auto', installDismissed:false, lastBackup:null} };
+      save(); closeSheet(); state.view='today'; render();
+      break;
+    case 'sheet-close': closeSheet(); break;
+    case 'install': installSheet(); break;
+    case 'install-now':
+      if (state.deferredPrompt){ state.deferredPrompt.prompt(); state.deferredPrompt = null; closeSheet(); }
+      break;
+    case 'install-dismiss': S.settings.installDismissed = true; save(); render(); break;
+  }
+});
+document.addEventListener('change', e => {
+  if (e.target.id === 'import-file'){
+    const file = e.target.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try{
+        const data = JSON.parse(reader.result);
+        if (!data || data.v !== 1 || !data.profile || !data.profile.dob) throw new Error('bad');
+        S = data; S.settings = Object.assign({theme:'auto', installDismissed:false, lastBackup:null}, S.settings||{});
+        save(); state.bracket = null; render(); toast(`Welcome back, ${S.profile.name} 💛`);
+      }catch(err){ toast('That file isn’t a Little Days backup'); }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  }
+});
+
+/* ---------- theme + install + sw ---------- */
+function applyTheme(){
+  const t = S.settings.theme || 'auto';
+  if (t === 'auto') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme', t);
+  requestAnimationFrame(() => {
+    const bg = getComputedStyle(document.body).backgroundColor;
+    let meta = document.querySelector('meta[name="theme-color"]:not([media])');
+    if (!meta){ meta = document.createElement('meta'); meta.name = 'theme-color'; document.head.appendChild(meta); }
+    meta.content = bg;
+  });
+}
+function isStandalone(){
+  return matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+}
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  state.deferredPrompt = e;
+});
+if ('serviceWorker' in navigator){
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+
+/* ---------- boot ---------- */
+state.view = ['today','milestones','firsts','days','more'].includes(location.hash.replace('#','')) ? location.hash.replace('#','') : 'today';
+render();
+console.log('Little Days v' + VERSION + ' — hi, tiny human 👋');
+</script>
+</body>
+</html>
