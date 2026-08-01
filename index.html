@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <title>Little Days — Baby Milestones & Memories</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Day-by-day milestone tracking, activity ideas, and a memory log for your baby. No account, no ads — everything stays on your device.">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf3eb">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#211b31">
+<meta name="description" content="Day-by-day milestone tracking, activity ideas, photos, and a memory log for your baby. No account, no ads — everything stays on your device.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff5ef">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2a2033">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -16,47 +16,55 @@
 <meta name="apple-mobile-web-app-title" content="Little Days">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ---------- tokens ---------- */
+/* ---------- tokens: sticker-book sorbet ---------- */
 :root{
-  --bg:#faf3eb; --surface:#ffffff; --raised:#fff9f1;
-  --text:#38304e; --muted:#7d7492; --line:rgba(56,48,78,.12);
-  --accent:#e08856; --accent-soft:rgba(224,136,86,.14);
-  --sage:#7fa477; --sage-soft:rgba(127,164,119,.16);
-  --gold:#c9a452; --danger:#c4574d;
-  --glow:rgba(224,136,86,.20);
-  --shadow:0 6px 24px rgba(56,48,78,.08);
-  --r:20px; --tap:48px;
+  --bg:#fff5ef; --surface:#ffffff; --raised:#fff9f4;
+  --text:#4d3b52; --muted:#a08b9e; --line:rgba(77,59,82,.13);
+  --accent:#ff8b6a; --accent-soft:rgba(255,139,106,.15);
+  --leaf:#48b187; --leaf-soft:rgba(72,177,135,.14);
+  --sun:#f7b955; --sun-soft:rgba(247,185,85,.22);
+  --berry:#f27da0; --berry-soft:rgba(242,125,160,.18);
+  --danger:#e25c5c;
+  --glow:rgba(255,155,120,.28);
+  --shadow:0 8px 26px rgba(255,139,106,.12);
+  --r:24px; --tap:48px;
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#211b31; --surface:#2a2340; --raised:#332b4c;
-    --text:#f5efe6; --muted:#a99fc0; --line:rgba(245,239,230,.10);
-    --accent:#f2a97e; --accent-soft:rgba(242,169,126,.14);
-    --sage:#a9c7a1; --sage-soft:rgba(169,199,161,.14);
-    --gold:#e8c87e; --danger:#e2837b;
-    --glow:rgba(242,169,126,.16);
-    --shadow:0 6px 24px rgba(0,0,0,.25);
+    --bg:#2a2033; --surface:#352941; --raised:#3f3150;
+    --text:#fff2e8; --muted:#bca8c4; --line:rgba(255,242,232,.11);
+    --accent:#ffa184; --accent-soft:rgba(255,161,132,.16);
+    --leaf:#7fd6ac; --leaf-soft:rgba(127,214,172,.15);
+    --sun:#ffd08a; --sun-soft:rgba(255,208,138,.16);
+    --berry:#ff9dbb; --berry-soft:rgba(255,157,187,.15);
+    --danger:#ff8f85;
+    --glow:rgba(255,161,132,.18);
+    --shadow:0 8px 26px rgba(0,0,0,.28);
   }
 }
 :root[data-theme="light"]{
-  --bg:#faf3eb; --surface:#ffffff; --raised:#fff9f1;
-  --text:#38304e; --muted:#7d7492; --line:rgba(56,48,78,.12);
-  --accent:#e08856; --accent-soft:rgba(224,136,86,.14);
-  --sage:#7fa477; --sage-soft:rgba(127,164,119,.16);
-  --gold:#c9a452; --danger:#c4574d;
-  --glow:rgba(224,136,86,.20);
-  --shadow:0 6px 24px rgba(56,48,78,.08);
+  --bg:#fff5ef; --surface:#ffffff; --raised:#fff9f4;
+  --text:#4d3b52; --muted:#a08b9e; --line:rgba(77,59,82,.13);
+  --accent:#ff8b6a; --accent-soft:rgba(255,139,106,.15);
+  --leaf:#48b187; --leaf-soft:rgba(72,177,135,.14);
+  --sun:#f7b955; --sun-soft:rgba(247,185,85,.22);
+  --berry:#f27da0; --berry-soft:rgba(242,125,160,.18);
+  --danger:#e25c5c;
+  --glow:rgba(255,155,120,.28);
+  --shadow:0 8px 26px rgba(255,139,106,.12);
 }
 :root[data-theme="dark"]{
-  --bg:#211b31; --surface:#2a2340; --raised:#332b4c;
-  --text:#f5efe6; --muted:#a99fc0; --line:rgba(245,239,230,.10);
-  --accent:#f2a97e; --accent-soft:rgba(242,169,126,.14);
-  --sage:#a9c7a1; --sage-soft:rgba(169,199,161,.14);
-  --gold:#e8c87e; --danger:#e2837b;
-  --glow:rgba(242,169,126,.16);
-  --shadow:0 6px 24px rgba(0,0,0,.25);
+  --bg:#2a2033; --surface:#352941; --raised:#3f3150;
+  --text:#fff2e8; --muted:#bca8c4; --line:rgba(255,242,232,.11);
+  --accent:#ffa184; --accent-soft:rgba(255,161,132,.16);
+  --leaf:#7fd6ac; --leaf-soft:rgba(127,214,172,.15);
+  --sun:#ffd08a; --sun-soft:rgba(255,208,138,.16);
+  --berry:#ff9dbb; --berry-soft:rgba(255,157,187,.15);
+  --danger:#ff8f85;
+  --glow:rgba(255,161,132,.18);
+  --shadow:0 8px 26px rgba(0,0,0,.28);
 }
 /* ---------- base ---------- */
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
@@ -68,226 +76,278 @@ body{
   min-height:100dvh; overscroll-behavior-y:none;
   -webkit-font-smoothing:antialiased;
 }
-.display{font-family:"Fraunces",Georgia,"Iowan Old Style",serif}
+.display{font-family:"Fredoka",system-ui,sans-serif}
 button{font:inherit; color:inherit; background:none; border:none; cursor:pointer; padding:0}
 input,select,textarea{font:inherit; color:inherit}
-:focus-visible{outline:3px solid var(--accent); outline-offset:2px; border-radius:8px}
-a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px; border-radius:10px}
+a{color:var(--accent); font-weight:600}
 ::selection{background:var(--accent-soft)}
+h1,h2,h3{font-family:"Fredoka",system-ui,sans-serif; font-weight:600}
 
 /* ---------- app shell ---------- */
-#app{max-width:560px; margin:0 auto; padding:calc(14px + env(safe-area-inset-top)) 18px calc(96px + env(safe-area-inset-bottom));}
+#app{max-width:560px; margin:0 auto; padding:calc(14px + env(safe-area-inset-top)) 18px calc(104px + env(safe-area-inset-bottom));}
 .tabbar{
   position:fixed; left:0; right:0; bottom:0; z-index:40;
   display:flex; justify-content:center; gap:2px;
   padding:8px 10px calc(8px + env(safe-area-inset-bottom));
-  background:color-mix(in srgb, var(--bg) 82%, transparent);
+  background:color-mix(in srgb, var(--bg) 84%, transparent);
   -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
   border-top:1px solid var(--line);
 }
-.tabbar button{
-  flex:1; max-width:104px; min-height:var(--tap);
-  display:flex; flex-direction:column; align-items:center; gap:3px;
-  color:var(--muted); border-radius:14px; padding:6px 2px 4px;
-  font-size:11px; font-weight:600; letter-spacing:.02em;
-  transition:color .15s;
-}
 .tabbar[hidden]{display:none}
-.tabbar button svg{width:23px; height:23px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
+.tabbar button{
+  flex:1; max-width:104px; min-height:56px;
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  color:var(--muted); border-radius:18px; padding:4px 2px;
+  font-family:"Fredoka",system-ui,sans-serif;
+  font-size:11px; font-weight:500; letter-spacing:.02em;
+}
+.tabbar .ico{
+  font-size:19px; line-height:1; display:flex; align-items:center; justify-content:center;
+  width:40px; height:28px; border-radius:14px; transition:background .15s, transform .15s;
+  filter:grayscale(1) opacity(.55);
+}
 .tabbar button[aria-current="page"]{color:var(--accent)}
-.tabbar button[aria-current="page"] .dotu{width:4px;height:4px;border-radius:2px;background:var(--accent)}
-.dotu{width:4px;height:4px;border-radius:2px;background:transparent}
+.tabbar button[aria-current="page"] .ico{background:var(--accent-soft); filter:none; transform:scale(1.08)}
 
-/* desktop: rail on the left, roomier canvas */
+/* desktop: rail on the left */
 @media (min-width:900px){
-  body{display:block}
   #app{max-width:680px; padding-left:24px; padding-right:24px; padding-bottom:48px}
   .tabbar{
     left:max(12px, calc(50vw - 340px - 130px)); right:auto; top:50%; bottom:auto; transform:translateY(-50%);
-    flex-direction:column; width:96px; border:1px solid var(--line); border-radius:22px;
-    padding:14px 8px; gap:6px; box-shadow:var(--shadow); background:color-mix(in srgb, var(--surface) 88%, transparent);
+    flex-direction:column; width:96px; border:1px solid var(--line); border-radius:26px;
+    padding:14px 8px; gap:6px; box-shadow:var(--shadow); background:color-mix(in srgb, var(--surface) 90%, transparent);
   }
-  .tabbar button{max-width:none; font-size:11.5px}
+  .tabbar button{max-width:none}
   .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px}
   .grid2 .span2{grid-column:1 / -1}
 }
-@media (max-width:899px){ .grid2>*{margin-bottom:0} }
 
 /* ---------- components ---------- */
 .card{
   background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
-  padding:16px 16px; box-shadow:var(--shadow); margin:0 0 14px;
+  padding:16px; box-shadow:var(--shadow); margin:0 0 14px;
 }
-.card h2{margin:0 0 4px; font-size:15px; font-weight:700; letter-spacing:.01em}
+.card h2{margin:0 0 4px; font-size:16.5px; font-weight:600; letter-spacing:.01em}
 .card .sub{color:var(--muted); font-size:13px; margin:0 0 10px}
-.eyebrow{font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+.eyebrow{font-family:"Fredoka",system-ui,sans-serif; font-size:11.5px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--accent)}
 .chip{
-  display:inline-flex; align-items:center; gap:5px; padding:5px 11px; border-radius:999px;
+  display:inline-flex; align-items:center; gap:5px; padding:5px 12px; border-radius:999px;
   background:var(--raised); border:1px solid var(--line); font-size:12.5px; font-weight:600;
   color:var(--muted); font-variant-numeric:tabular-nums;
 }
 .chip.on{background:var(--accent-soft); color:var(--accent); border-color:transparent}
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  min-height:var(--tap); padding:10px 20px; border-radius:16px;
-  background:var(--accent); color:var(--bg); font-weight:700; font-size:15px;
+  min-height:var(--tap); padding:10px 22px; border-radius:999px;
+  background:var(--accent); color:#fff; font-weight:500; font-size:15.5px;
+  font-family:"Fredoka",system-ui,sans-serif; letter-spacing:.01em;
   border:none; transition:transform .1s, filter .15s;
+  box-shadow:0 4px 14px var(--glow);
 }
-.btn:active{transform:scale(.97)}
-.btn.ghost{background:var(--raised); color:var(--text); border:1px solid var(--line)}
-.btn.quiet{background:none; color:var(--accent); min-height:40px; padding:6px 10px}
-.btn.danger{background:none; border:1px solid var(--danger); color:var(--danger)}
-.btn.small{min-height:38px; padding:6px 14px; font-size:13.5px; border-radius:12px}
+.btn:active{transform:scale(.96)}
+.btn.ghost{background:var(--raised); color:var(--text); border:1.5px solid var(--line); box-shadow:none}
+.btn.quiet{background:none; color:var(--accent); min-height:40px; padding:6px 10px; box-shadow:none}
+.btn.danger{background:none; border:1.5px solid var(--danger); color:var(--danger); box-shadow:none}
+.btn.small{min-height:38px; padding:6px 16px; font-size:13.5px}
 .row{display:flex; align-items:center; gap:10px}
 .row.between{justify-content:space-between}
 .stack{display:flex; flex-direction:column; gap:10px}
 
-/* hero */
-.hero{position:relative; padding:26px 4px 8px; margin-bottom:10px}
-.hero .halo{
-  position:absolute; top:-30px; left:50%; transform:translateX(-50%);
-  width:280px; height:280px; border-radius:50%;
-  background:radial-gradient(circle, var(--glow), transparent 65%);
-  pointer-events:none; animation:breathe 5s ease-in-out infinite;
-}
-@keyframes breathe{0%,100%{opacity:.75; transform:translateX(-50%) scale(1)} 50%{opacity:1; transform:translateX(-50%) scale(1.07)}}
-.hero .who{font-size:17px; color:var(--muted); margin:14px 0 0; position:relative}
+/* hero + blobs + arch */
+.hero{position:relative; padding:22px 4px 10px; margin-bottom:10px}
+.blob{position:absolute; border-radius:58% 42% 55% 45% / 52% 58% 42% 48%; pointer-events:none; z-index:0}
+.blob.b1{width:190px; height:170px; background:var(--sun-soft); top:-24px; left:-36px; animation:drift 9s ease-in-out infinite alternate}
+.blob.b2{width:150px; height:140px; background:var(--berry-soft); top:44px; right:-30px; animation:drift 11s ease-in-out infinite alternate-reverse}
+@keyframes drift{from{transform:translate(0,0) rotate(0deg)} to{transform:translate(10px,8px) rotate(6deg)}}
+.hero>*{position:relative; z-index:1}
+.hero .brand{display:flex; align-items:center; justify-content:space-between}
+.hero .brand .date{font-size:12.5px; color:var(--muted); font-weight:600}
+.hero .body{display:flex; align-items:center; gap:14px; margin-top:12px}
+.hero .words{flex:1; min-width:0}
+.hero .who{font-size:17px; color:var(--muted); margin:0}
 .hero .age{
-  font-size:clamp(38px, 11vw, 56px); line-height:1.08; font-weight:560;
-  margin:2px 0 12px; position:relative; letter-spacing:-.01em; text-wrap:balance;
+  font-size:clamp(34px, 9.6vw, 52px); line-height:1.1; font-weight:600;
+  margin:2px 0 12px; letter-spacing:0; text-wrap:balance;
   font-variant-numeric:tabular-nums;
 }
-.hero .chips{display:flex; flex-wrap:wrap; gap:7px; position:relative}
-.hero .brand{display:flex; align-items:center; justify-content:space-between; position:relative}
-.hero .brand .date{font-size:12.5px; color:var(--muted); font-weight:600}
+.hero .chips{display:flex; flex-wrap:wrap; gap:7px}
+.arch{
+  border-radius:999px 999px 22px 22px; object-fit:cover; display:block;
+  border:3px solid var(--surface); box-shadow:var(--shadow);
+}
+.hero .arch-wrap{flex:none; position:relative; transform:rotate(2.5deg)}
+.hero .arch-wrap::before{
+  content:''; position:absolute; inset:-7px; border-radius:999px 999px 26px 26px;
+  border:2px dashed var(--accent); opacity:.5;
+}
+.hero .arch{width:96px; height:124px}
+.memline{margin:0 0 12px; font-size:13.5px; color:var(--muted); background:var(--berry-soft); border-radius:14px; padding:9px 13px; display:inline-block}
 
-/* activity cards */
+/* sticker emoji chips */
 .acts{display:flex; flex-direction:column; gap:10px}
 .act{
   display:flex; gap:12px; align-items:flex-start; padding:12px 13px;
-  background:var(--raised); border:1px solid var(--line); border-radius:16px;
+  background:var(--raised); border:1px solid var(--line); border-radius:20px;
 }
-.act .e{font-size:24px; line-height:1.2; flex:none; margin-top:1px}
-.act b{display:block; font-size:14.5px; margin-bottom:1px}
+.act .e{
+  font-size:21px; line-height:1; flex:none; width:42px; height:42px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--surface); border-radius:50%; box-shadow:0 2px 8px rgba(77,59,82,.10);
+  transform:rotate(-4deg);
+}
+.act:nth-child(even) .e{transform:rotate(4deg)}
+.act b{display:block; font-size:14.5px; margin-bottom:1px; font-family:"Fredoka",system-ui,sans-serif; font-weight:500}
 .act p{margin:0; font-size:13px; color:var(--muted); line-height:1.45}
-
-/* phase note */
-.phase{background:var(--sage-soft); border:none; }
-.phase b{font-size:14px}
-.phase p{margin:2px 0 0; font-size:13px; color:var(--muted)}
+.phase{background:var(--leaf-soft); border:none}
 
 /* progress */
-.bar{height:8px; border-radius:6px; background:var(--raised); border:1px solid var(--line); overflow:hidden}
-.bar i{display:block; height:100%; border-radius:6px; background:linear-gradient(90deg, var(--accent), var(--gold)); transition:width .4s ease}
+.bar{height:10px; border-radius:999px; background:var(--raised); border:1px solid var(--line); overflow:hidden}
+.bar i{display:block; height:100%; border-radius:999px; background:linear-gradient(90deg, var(--accent), var(--sun)); transition:width .4s ease}
 
 /* milestone pills */
-.pills{display:flex; gap:8px; overflow-x:auto; padding:4px 2px 10px; scrollbar-width:none; -ms-overflow-style:none}
+.pills{display:flex; gap:8px; overflow-x:auto; padding:4px 2px 10px; scrollbar-width:none}
 .pills::-webkit-scrollbar{display:none}
 .pill{
-  flex:none; min-height:40px; padding:7px 15px; border-radius:999px; font-weight:700; font-size:13.5px;
-  background:var(--surface); border:1px solid var(--line); color:var(--muted);
+  flex:none; min-height:42px; padding:7px 16px; border-radius:999px; font-weight:500; font-size:13.5px;
+  font-family:"Fredoka",system-ui,sans-serif;
+  background:var(--surface); border:1.5px solid var(--line); color:var(--muted);
   display:flex; align-items:center; gap:7px;
 }
-.pill .pct{font-size:10.5px; font-weight:700; color:var(--muted); font-variant-numeric:tabular-nums}
-.pill[aria-pressed="true"]{background:var(--accent); color:var(--bg); border-color:transparent}
-.pill[aria-pressed="true"] .pct{color:var(--bg)}
-.pill .now{width:6px; height:6px; border-radius:3px; background:var(--gold); flex:none}
+.pill .pct{font-size:10.5px; font-weight:600; color:var(--muted); font-variant-numeric:tabular-nums}
+.pill[aria-pressed="true"]{background:var(--accent); color:#fff; border-color:transparent; box-shadow:0 4px 12px var(--glow)}
+.pill[aria-pressed="true"] .pct{color:#fff}
+.pill .now{width:7px; height:7px; border-radius:4px; background:var(--sun); flex:none}
 
 /* check rows */
-.cat{margin:16px 0 6px; font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.cat{margin:16px 0 6px; font-family:"Fredoka",system-ui,sans-serif; font-size:12.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
 .check{
   display:flex; width:100%; text-align:left; gap:12px; align-items:flex-start;
-  padding:11px 6px; min-height:var(--tap); border-radius:12px; border-bottom:1px solid var(--line);
+  padding:11px 6px; min-height:var(--tap); border-radius:14px; border-bottom:1px solid var(--line);
 }
 .check:last-child{border-bottom:none}
 .check .box{
-  flex:none; width:26px; height:26px; border-radius:50%; margin-top:1px;
-  border:2px solid var(--muted); display:flex; align-items:center; justify-content:center;
+  flex:none; width:27px; height:27px; border-radius:10px; margin-top:1px;
+  border:2.5px solid var(--line); display:flex; align-items:center; justify-content:center;
   transition:all .15s; color:transparent; font-size:15px; font-weight:800;
 }
-.check[aria-pressed="true"] .box{background:var(--sage); border-color:var(--sage); color:var(--bg)}
+.check[aria-pressed="true"] .box{background:var(--leaf); border-color:var(--leaf); color:#fff}
 .check .lbl{font-size:14.5px; line-height:1.4}
 .check[aria-pressed="true"] .lbl{color:var(--muted)}
-.check .when{display:block; font-size:11.5px; color:var(--sage); font-weight:700; margin-top:2px; font-variant-numeric:tabular-nums}
-@keyframes pop{0%{transform:scale(1)} 40%{transform:scale(1.25)} 100%{transform:scale(1)}}
+.check .when{display:block; font-size:11.5px; color:var(--leaf); font-weight:700; margin-top:2px; font-variant-numeric:tabular-nums}
+@keyframes pop{0%{transform:scale(1)} 40%{transform:scale(1.3) rotate(-6deg)} 100%{transform:scale(1)}}
 .check.justdid .box{animation:pop .35s ease}
+
+/* segmented */
+.seg{display:flex; background:var(--raised); border:1px solid var(--line); border-radius:999px; padding:4px; gap:4px}
+.seg button{flex:1; min-height:40px; border-radius:999px; font-weight:500; font-size:13.5px; color:var(--muted); font-family:"Fredoka",system-ui,sans-serif}
+.seg button[aria-pressed="true"]{background:var(--accent); color:#fff}
 
 /* firsts */
 .firsts{display:grid; grid-template-columns:1fr 1fr; gap:10px}
 .first{
-  border-radius:18px; padding:14px 12px; text-align:left; min-height:104px;
+  border-radius:22px; padding:13px 12px; text-align:left; min-height:108px;
   display:flex; flex-direction:column; gap:3px; align-items:flex-start;
   background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow);
+  position:relative; overflow:hidden;
 }
-.first.todo{background:none; border:1.5px dashed var(--line); box-shadow:none; color:var(--muted)}
-.first .e{font-size:26px}
-.first b{font-size:13.5px; line-height:1.25}
+.first.todo{background:none; border:2px dashed var(--line); box-shadow:none; color:var(--muted)}
+.first .e{
+  font-size:22px; line-height:1; width:40px; height:40px; display:flex; align-items:center; justify-content:center;
+  background:var(--raised); border-radius:50%; transform:rotate(-4deg);
+}
+.first:nth-child(even) .e{transform:rotate(4deg)}
+.first.todo .e{background:none; filter:grayscale(.7) opacity(.7)}
+.first b{font-size:13.5px; line-height:1.25; font-family:"Fredoka",system-ui,sans-serif; font-weight:500}
 .first .d{font-size:11.5px; color:var(--accent); font-weight:700; font-variant-numeric:tabular-nums}
 .first .n{font-size:11.5px; color:var(--muted); font-style:italic; line-height:1.3; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+.first .thumb{width:100%; height:74px; object-fit:cover; border-radius:14px; margin-bottom:4px}
+
+/* monthly photo grid */
+.months{display:grid; grid-template-columns:repeat(3, 1fr); gap:10px}
+.mslot{
+  position:relative; display:flex; flex-direction:column; align-items:center; gap:6px;
+  padding:8px 6px 10px; border-radius:20px; background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow);
+}
+.mslot.empty{background:none; border:2px dashed var(--line); box-shadow:none; color:var(--muted)}
+.mslot.locked{opacity:.45}
+.mslot .arch{width:100%; aspect-ratio:4/5; height:auto}
+.mslot .hole{
+  width:100%; aspect-ratio:4/5; border-radius:999px 999px 18px 18px;
+  background:var(--raised); display:flex; align-items:center; justify-content:center;
+  font-size:22px; color:var(--muted);
+}
+.mslot b{font-family:"Fredoka",system-ui,sans-serif; font-weight:500; font-size:12.5px}
+.mslot span{font-size:10.5px; color:var(--muted)}
 
 /* days list */
-.day{
-  display:flex; align-items:center; gap:13px; padding:11px 4px; border-bottom:1px solid var(--line);
-}
+.day{display:flex; align-items:center; gap:13px; padding:11px 4px; border-bottom:1px solid var(--line)}
 .day:last-child{border-bottom:none}
 .day .cal{
-  flex:none; width:46px; text-align:center; background:var(--raised); border:1px solid var(--line);
-  border-radius:12px; padding:5px 0 6px; font-variant-numeric:tabular-nums;
+  flex:none; width:48px; text-align:center; background:var(--raised); border:1px solid var(--line);
+  border-radius:16px; padding:6px 0 7px; font-variant-numeric:tabular-nums;
 }
-.day .cal .mo{display:block; font-size:9.5px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--accent)}
-.day .cal .dd{display:block; font-size:17px; font-weight:700; line-height:1.1}
+.day .cal .mo{display:block; font-size:9.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent)}
+.day .cal .dd{display:block; font-family:"Fredoka",system-ui,sans-serif; font-size:18px; font-weight:600; line-height:1.15}
 .day .t{flex:1; min-width:0}
 .day .t b{display:block; font-size:14.5px}
 .day .t span{font-size:12px; color:var(--muted)}
-.day .in{flex:none}
+.day .in{flex:none; display:flex; align-items:center; gap:4px}
 
 /* forms */
 .field{display:flex; flex-direction:column; gap:6px; margin-bottom:14px}
-.field label{font-size:13px; font-weight:700; color:var(--muted)}
+.field label{font-size:13px; font-weight:600; color:var(--muted)}
 .field input[type="text"], .field input[type="date"], .field input[type="number"], .field select, .field textarea{
-  min-height:var(--tap); padding:10px 14px; border-radius:14px; width:100%;
+  min-height:var(--tap); padding:10px 15px; border-radius:16px; width:100%;
   background:var(--raised); border:1.5px solid var(--line); color:var(--text);
 }
 .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--accent); outline:none}
-.seg{display:flex; background:var(--raised); border:1px solid var(--line); border-radius:14px; padding:4px; gap:4px}
-.seg button{flex:1; min-height:40px; border-radius:10px; font-weight:700; font-size:13.5px; color:var(--muted)}
-.seg button[aria-pressed="true"]{background:var(--accent); color:var(--bg)}
+
+/* photo picker inside sheets */
+.photorow{display:flex; align-items:center; gap:12px; margin-bottom:14px}
+.photorow .arch{width:74px; height:94px}
+.photorow .hole{
+  width:74px; height:94px; border-radius:999px 999px 16px 16px; flex:none;
+  background:var(--raised); border:2px dashed var(--line);
+  display:flex; align-items:center; justify-content:center; font-size:20px; color:var(--muted);
+}
 
 /* sheet + toast */
-.backdrop{position:fixed; inset:0; background:rgba(20,15,35,.45); z-index:60; -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px)}
+.backdrop{position:fixed; inset:0; background:rgba(42,32,51,.42); z-index:60; -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px)}
 .sheet{
   position:fixed; left:0; right:0; bottom:0; z-index:61; max-height:88dvh; overflow:auto;
-  background:var(--surface); border-radius:24px 24px 0 0; border:1px solid var(--line); border-bottom:none;
+  background:var(--surface); border-radius:28px 28px 0 0; border:1px solid var(--line); border-bottom:none;
   padding:10px 20px calc(22px + env(safe-area-inset-bottom));
   animation:up .22s ease;
 }
-.sheet .grab{width:38px; height:4px; border-radius:2px; background:var(--line); margin:4px auto 14px}
-.sheet h3{margin:0 0 14px; font-size:17px}
+.sheet .grab{width:38px; height:5px; border-radius:3px; background:var(--line); margin:4px auto 14px}
+.sheet h3{margin:0 0 14px; font-size:18px}
 @keyframes up{from{transform:translateY(40px); opacity:.5} to{transform:none; opacity:1}}
 @media (min-width:700px){
-  .sheet{left:50%; right:auto; bottom:auto; top:50%; transform:translate(-50%,-50%); width:min(440px, 92vw); border-radius:24px; border-bottom:1px solid var(--line); animation:fadein .18s ease}
+  .sheet{left:50%; right:auto; bottom:auto; top:50%; transform:translate(-50%,-50%); width:min(440px, 92vw); border-radius:28px; border-bottom:1px solid var(--line); animation:fadein .18s ease}
   @keyframes fadein{from{opacity:0; transform:translate(-50%,-48%)} to{opacity:1; transform:translate(-50%,-50%)}}
 }
 .toast{
-  position:fixed; left:50%; transform:translateX(-50%); bottom:calc(96px + env(safe-area-inset-bottom)); z-index:70;
-  background:var(--text); color:var(--bg); padding:10px 20px; border-radius:999px; font-weight:700; font-size:14px;
+  position:fixed; left:50%; transform:translateX(-50%); bottom:calc(104px + env(safe-area-inset-bottom)); z-index:70;
+  background:var(--text); color:var(--bg); padding:10px 22px; border-radius:999px; font-weight:500; font-size:14px;
+  font-family:"Fredoka",system-ui,sans-serif;
   box-shadow:var(--shadow); animation:up .2s ease; max-width:88vw; text-align:center;
 }
 @media (min-width:900px){ .toast{bottom:40px} }
 
 /* onboarding */
-.onb{min-height:88dvh; display:flex; flex-direction:column; justify-content:center; padding:10px 2px}
-.onb .moon{font-size:52px; margin-bottom:6px}
-.onb h1{font-size:clamp(34px,9vw,44px); margin:0 0 6px; font-weight:600; letter-spacing:-.01em}
+.onb{min-height:88dvh; display:flex; flex-direction:column; justify-content:center; padding:10px 2px; position:relative}
+.onb .moon{font-size:56px; margin-bottom:6px}
+.onb h1{font-size:clamp(38px,10vw,48px); margin:0 0 6px; font-weight:600}
 .onb .lede{color:var(--muted); font-size:16px; margin:0 0 26px; max-width:34ch}
 .onb .fine{font-size:12.5px; color:var(--muted); margin-top:16px; line-height:1.5}
 
-details.past summary{cursor:pointer; min-height:var(--tap); display:flex; align-items:center; font-weight:700; font-size:14px; color:var(--muted); list-style:none}
+details.past summary{cursor:pointer; min-height:var(--tap); display:flex; align-items:center; font-weight:600; font-size:14px; color:var(--muted); list-style:none; font-family:"Fredoka",system-ui,sans-serif}
 details.past summary::-webkit-details-marker{display:none}
+details summary:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
 
 .note{font-size:12.5px; color:var(--muted); line-height:1.5}
 .center{text-align:center}
-hr.soft{border:none; border-top:1px solid var(--line); margin:16px 0}
 #fx{position:fixed; inset:0; pointer-events:none; z-index:80}
 
 @media (prefers-reduced-motion: reduce){
@@ -299,11 +359,11 @@ hr.soft{border:none; border-top:1px solid var(--line); margin:16px 0}
 <canvas id="fx"></canvas>
 <div id="app"></div>
 <nav class="tabbar" id="tabbar" hidden aria-label="Main">
-  <button data-nav="today"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.2 5.2l1.7 1.7M17.1 17.1l1.7 1.7M18.8 5.2l-1.7 1.7M6.9 17.1l-1.7 1.7"/></svg>Today<span class="dotu"></span></button>
-  <button data-nav="milestones"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 9.2l5.4-.8z"/></svg>Milestones<span class="dotu"></span></button>
-  <button data-nav="firsts"><svg viewBox="0 0 24 24"><path d="M12 20.3S4 15.1 4 9.9C4 7.2 6.1 5 8.7 5c1.5 0 2.7.9 3.3 1.8C12.6 5.9 13.8 5 15.3 5 17.9 5 20 7.2 20 9.9c0 5.2-8 10.4-8 10.4z"/></svg>Firsts<span class="dotu"></span></button>
-  <button data-nav="days"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 2.8V6M16 2.8V6"/><circle cx="12" cy="15" r="1.3" fill="currentColor" stroke="none"/></svg>Days<span class="dotu"></span></button>
-  <button data-nav="more"><svg viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="18.5" cy="12" r="1.4" fill="currentColor" stroke="none"/><rect x="3.5" y="4.5" width="17" height="15" rx="3.5"/></svg>More<span class="dotu"></span></button>
+  <button data-nav="today"><span class="ico">☀️</span>Today</button>
+  <button data-nav="milestones"><span class="ico">⭐</span>Milestones</button>
+  <button data-nav="firsts"><span class="ico">💛</span>Firsts</button>
+  <button data-nav="days"><span class="ico">🎈</span>Days</button>
+  <button data-nav="more"><span class="ico">🧸</span>More</button>
 </nav>
 
 <noscript><p style="padding:40px 24px; text-align:center">Little Days needs JavaScript turned on.</p></noscript>
@@ -311,10 +371,10 @@ hr.soft{border:none; border-top:1px solid var(--line); margin:16px 0}
 <script>
 'use strict';
 /* =============================================================
-   Little Days — everything lives on this device. v1.0.0
+   Little Days — everything lives on this device. v2.0.0
    Milestone content: CDC "Learn the Signs. Act Early." (2022)
    ============================================================= */
-const VERSION = '1.0.0';
+const VERSION = '2.0.0';
 const LS_KEY = 'littledays.v1';
 
 /* ---------- data: CDC milestone checklists (75%+ of babies by each age) ---------- */
@@ -522,7 +582,6 @@ const FIRST_PRESETS = [
 ];
 
 /* ---------- store ---------- */
-let mem = null;
 function load(){
   try{ const raw = localStorage.getItem(LS_KEY); if(raw) return JSON.parse(raw); }catch(e){}
   return null;
@@ -530,8 +589,95 @@ function load(){
 let S = load() || { v:1, profile:null, checks:{}, firsts:[], customDays:[], settings:{theme:'auto', installDismissed:false, lastBackup:null} };
 S.settings = Object.assign({theme:'auto', installDismissed:false, lastBackup:null}, S.settings||{});
 function save(){
-  try{ localStorage.setItem(LS_KEY, JSON.stringify(S)); }
-  catch(e){ mem = S; }
+  try{ localStorage.setItem(LS_KEY, JSON.stringify(S)); }catch(e){}
+}
+
+/* ---------- photo store (IndexedDB — photos are too big for localStorage) ---------- */
+let dbPromise = null;
+function pdb(){
+  dbPromise = dbPromise || new Promise((res, rej) => {
+    const r = indexedDB.open('littledays', 1);
+    r.onupgradeneeded = () => r.result.createObjectStore('photos', {keyPath:'id'});
+    r.onsuccess = () => res(r.result);
+    r.onerror = () => rej(r.error);
+  });
+  return dbPromise;
+}
+async function photoPut(id, blob){
+  const d = await pdb();
+  await new Promise((res, rej) => {
+    const t = d.transaction('photos','readwrite');
+    t.objectStore('photos').put({id, blob, created: Date.now()});
+    t.oncomplete = res; t.onerror = () => rej(t.error);
+  });
+  purlDrop(id);
+}
+async function photoGet(id){
+  const d = await pdb();
+  return new Promise((res, rej) => {
+    const q = d.transaction('photos').objectStore('photos').get(id);
+    q.onsuccess = () => res(q.result || null); q.onerror = () => rej(q.error);
+  });
+}
+async function photoDel(id){
+  const d = await pdb();
+  await new Promise((res, rej) => {
+    const t = d.transaction('photos','readwrite');
+    t.objectStore('photos').delete(id);
+    t.oncomplete = res; t.onerror = () => rej(t.error);
+  });
+  purlDrop(id);
+}
+async function photoAll(){
+  const d = await pdb();
+  return new Promise((res, rej) => {
+    const q = d.transaction('photos').objectStore('photos').getAll();
+    q.onsuccess = () => res(q.result || []); q.onerror = () => rej(q.error);
+  });
+}
+const purl = new Map();
+function purlDrop(id){ if (purl.has(id)){ URL.revokeObjectURL(purl.get(id)); purl.delete(id); } }
+async function photoURL(id){
+  if (purl.has(id)) return purl.get(id);
+  const rec = await photoGet(id);
+  if (!rec) return null;
+  const u = URL.createObjectURL(rec.blob);
+  purl.set(id, u); return u;
+}
+async function shrink(file, max = 1600, q = 0.82){
+  let src, w, h;
+  try{
+    src = await createImageBitmap(file, {imageOrientation:'from-image'});
+    w = src.width; h = src.height;
+  }catch(e){
+    src = await new Promise((res, rej) => {
+      const i = new Image();
+      i.onload = () => res(i); i.onerror = rej;
+      i.src = URL.createObjectURL(file);
+    });
+    w = src.naturalWidth; h = src.naturalHeight;
+  }
+  const s = Math.min(1, max / Math.max(w, h));
+  const c = document.createElement('canvas');
+  c.width = Math.max(1, Math.round(w*s)); c.height = Math.max(1, Math.round(h*s));
+  c.getContext('2d').drawImage(src, 0, 0, c.width, c.height);
+  const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', q));
+  if (src.close) src.close();
+  return blob;
+}
+/* fill <img data-photo="id"> after each render */
+async function hydratePhotos(){
+  const imgs = document.querySelectorAll('[data-photo]');
+  for (const img of imgs){
+    const u = await photoURL(img.dataset.photo);
+    if (u) img.src = u;
+  }
+}
+async function latestPhotoId(){
+  const all = await photoAll();
+  if (!all.length) return null;
+  all.sort((a,b) => b.created - a.created);
+  return all[0].id;
 }
 
 /* ---------- date utils (all local-time, no UTC surprises) ---------- */
@@ -602,7 +748,6 @@ function specialDays(){
       let next = new Date(t.getFullYear(), d.getMonth(), Math.min(d.getDate(), new Date(t.getFullYear(), d.getMonth()+1,0).getDate()));
       if (diffDays(t, next) < 0) next = new Date(t.getFullYear()+1, d.getMonth(), d.getDate());
       list.push({date: next, e: cd.e||'💖', t: cd.t, custom: cd.id, yearly:true});
-      if (diffDays(t, d) < 0 && d.getFullYear() !== next.getFullYear()) {} // original past occurrence not listed
     } else {
       list.push({date: d, e: cd.e||'💖', t: cd.t, custom: cd.id});
     }
@@ -624,11 +769,45 @@ function activePhases(){
   const a = ages();
   return PHASES.filter(p => a.effMonths >= p.from && a.effMonths < p.to).slice(0,2);
 }
+/* "on this day" — a first logged exactly k months or years ago */
+function onThisDay(){
+  const t = today0();
+  for (const f of (S.firsts||[])){
+    if (!f.date) continue;
+    const d = fromISO(f.date);
+    for (let k=1; k<=60; k++){
+      const anniv = addMonthsClamp(d, k);
+      if (isoOf(anniv) === isoOf(t)){
+        const label = k % 12 === 0 ? `${k/12} year${k/12>1?'s':''}` : `${k} month${k>1?'s':''}`;
+        return {f, label};
+      }
+      if (anniv > t) break;
+    }
+  }
+  return null;
+}
+/* monthly photo slots */
+function monthSlots(){
+  const a = ages();
+  const dob = fromISO(S.profile.dob);
+  const slots = [];
+  for (let n=1; n<=12; n++){
+    const date = addMonthsClamp(dob, n);
+    slots.push({ id:`month:${n}`, label: n===12 ? '1 year 🎂' : `${n} mo`, date, unlocked: date <= a.t });
+  }
+  for (let k=2; k<=5; k++){
+    if (a.cal.months >= k*12 - 1){
+      const date = addMonthsClamp(dob, k*12);
+      slots.push({ id:`year:${k}`, label:`${k} years 🎂`, date, unlocked: date <= a.t });
+    }
+  }
+  return slots;
+}
 
 /* ---------- tiny framework ---------- */
 const app = document.getElementById('app');
 const tabbar = document.getElementById('tabbar');
-const state = { view:'today', bracket:null, shuffle:0, deferredPrompt:null };
+const state = { view:'today', bracket:null, shuffle:0, deferredPrompt:null, firstsSeg:'firsts', pendingPhoto:undefined };
 
 function nav(view){
   state.view = view;
@@ -662,30 +841,33 @@ function openSheet(html){
   sheetEl.setAttribute('role','dialog'); sheetEl.setAttribute('aria-modal','true');
   sheetEl.innerHTML = '<div class="grab"></div>' + html;
   document.body.append(backEl, sheetEl);
+  hydratePhotos();
   const f = sheetEl.querySelector('input,select,textarea,button');
   if (f) f.focus({preventScroll:true});
 }
 function closeSheet(){
   if (sheetEl) sheetEl.remove(); if (backEl) backEl.remove();
   sheetEl = backEl = null;
+  state.pendingPhoto = undefined;
 }
 
-/* ---------- confetti ---------- */
+/* ---------- confetti (hearts + stars + dots) ---------- */
 const fx = document.getElementById('fx');
 const fctx = fx.getContext('2d');
 let parts = [], fxRunning = false;
 function confetti(x, y){
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   fx.width = innerWidth * devicePixelRatio; fx.height = innerHeight * devicePixelRatio;
-  fctx.scale(devicePixelRatio, devicePixelRatio);
-  const colors = ['#f2a97e','#a9c7a1','#e8c87e','#f5efe6','#e08856'];
+  fctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  const colors = ['#ff8b6a','#48b187','#f7b955','#f27da0','#ffffff'];
   for (let i=0; i<70; i++){
+    const kind = i % 10 === 0 ? '💛' : (i % 14 === 0 ? '⭐' : null);
     parts.push({
       x: x ?? innerWidth/2, y: y ?? innerHeight*0.3,
       vx: (Math.random()-.5)*7, vy: -Math.random()*8-2,
       s: Math.random()*5+3, r: Math.random()*Math.PI,
       vr: (Math.random()-.5)*.3, c: colors[i%colors.length],
-      life: 1, circle: Math.random()>.5
+      life: 1, circle: Math.random()>.5, glyph: kind
     });
   }
   if (!fxRunning){ fxRunning = true; requestAnimationFrame(tick); }
@@ -697,9 +879,12 @@ function tick(){
   for (const p of parts){
     p.x += p.vx; p.y += p.vy; p.vy += .25; p.r += p.vr; p.life -= .012;
     fctx.save(); fctx.globalAlpha = Math.max(0,p.life); fctx.translate(p.x,p.y); fctx.rotate(p.r);
-    fctx.fillStyle = p.c;
-    if (p.circle){ fctx.beginPath(); fctx.arc(0,0,p.s/2,0,7); fctx.fill(); }
-    else fctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);
+    if (p.glyph){ fctx.font = '14px system-ui'; fctx.fillText(p.glyph, -7, 5); }
+    else {
+      fctx.fillStyle = p.c;
+      if (p.circle){ fctx.beginPath(); fctx.arc(0,0,p.s/2,0,7); fctx.fill(); }
+      else fctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);
+    }
     fctx.restore();
   }
   requestAnimationFrame(tick);
@@ -714,14 +899,18 @@ function render(){
     b.dataset.nav === state.view ? b.setAttribute('aria-current','page') : b.removeAttribute('aria-current'));
   const views = {today:viewToday, milestones:viewMilestones, firsts:viewFirsts, days:viewDays, more:viewMore};
   app.innerHTML = (views[state.view] || viewToday)();
+  hydratePhotos();
+  if (state.view === 'today') hydrateHeroPhoto();
 }
 
 function viewOnboarding(){
   return `<div class="onb">
-    <div class="moon">🌙</div>
-    <h1 class="display">Little Days</h1>
-    <p class="lede">Milestones, daily ideas, and every little first — free, private, and yours.</p>
-    <form onsubmit="return startProfile(event)">
+    <div class="blob b1" style="top:6%; left:-30px"></div>
+    <div class="blob b2" style="top:14%; right:-24px"></div>
+    <div class="moon" style="position:relative">🌙</div>
+    <h1 class="display" style="position:relative">Little Days</h1>
+    <p class="lede" style="position:relative">Milestones, daily ideas, photos, and every little first — free, private, and yours.</p>
+    <form onsubmit="return startProfile(event)" style="position:relative">
       <div class="field"><label for="ob-name">Baby’s name</label>
         <input id="ob-name" type="text" required maxlength="30" placeholder="e.g. Nora" autocomplete="off"></div>
       <div class="field"><label for="ob-dob">Birthday</label>
@@ -758,6 +947,14 @@ function heroAge(){
   }
   return `${a.cal.y} year${a.cal.y===1?'':'s'}, ${a.cal.m} month${a.cal.m===1?'':'s'}`;
 }
+async function hydrateHeroPhoto(){
+  const holder = document.getElementById('hero-photo');
+  if (!holder) return;
+  const id = await latestPhotoId();
+  if (!id) return;
+  const u = await photoURL(id);
+  if (u) holder.innerHTML = `<div class="arch-wrap"><img class="arch" src="${u}" alt="Latest photo"></div>`;
+}
 
 function viewToday(){
   const a = ages();
@@ -770,6 +967,7 @@ function viewToday(){
   const bLabel = MILESTONES.find(b=>b.m===cb).label;
   const prog = bracketProgress(cb);
   const recent = (S.firsts||[]).filter(f => f.date && diffDays(fromISO(f.date), a.t) <= 7).sort((x,y)=>y.date.localeCompare(x.date))[0];
+  const otd = onThisDay();
   const showInstall = !S.settings.installDismissed && !isStandalone();
   const chips = [];
   if (a.days >= 35 && a.cal.months < 24) chips.push(`${a.weeks} weeks`);
@@ -779,15 +977,22 @@ function viewToday(){
 
   return `
   <header class="hero">
-    <div class="halo"></div>
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
     <div class="brand">
       <span class="eyebrow">Little Days</span>
       <span class="date">${fmtLong(a.t)}</span>
     </div>
-    <p class="who">${name} is</p>
-    <h1 class="age display">${heroAge()}</h1>
-    <div class="chips">${chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>
+    <div class="body">
+      <div class="words">
+        <p class="who">${name} is</p>
+        <h1 class="age display">${heroAge()}</h1>
+        <div class="chips">${chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>
+      </div>
+      <div id="hero-photo"></div>
+    </div>
   </header>
+  ${otd ? `<p class="memline">💛 ${esc(otd.label)} ago today: ${otd.f.e} ${esc(otd.f.t)}</p>` : ''}
   <div class="grid2">
   ${next ? `<section class="card" style="display:flex;align-items:center;gap:13px">
       <span style="font-size:30px">${next.e}</span>
@@ -827,8 +1032,8 @@ function viewToday(){
   <section class="card">
     ${recent
       ? `<h2>Recently logged</h2><p class="sub" style="margin:0">${recent.e} ${esc(recent.t)} — ${fmtShort(fromISO(recent.date))} 💛</p>
-         <button class="btn quiet small" data-nav2="firsts" style="margin-top:8px">All her firsts →</button>`
-      : `<h2>Catch a first ✨</h2><p class="sub" style="margin:0 0 8px">First smile, first laugh, first steps — log them the day they happen.</p>
+         <button class="btn quiet small" data-nav2="firsts" style="margin-top:8px">All the firsts →</button>`
+      : `<h2>Catch a first ✨</h2><p class="sub" style="margin:0 0 8px">First smile, first laugh, first steps — log them the day they happen, photo and all.</p>
          <button class="btn ghost small" data-nav2="firsts">Open firsts</button>`}
   </section>
   </div>`;
@@ -849,8 +1054,8 @@ function viewMilestones(){
   const pct = prog.total ? Math.round(prog.done/prog.total*100) : 0;
   return `
   <header style="padding:10px 2px 12px">
-    <h1 class="display" style="font-size:30px;margin:0 0 4px;font-weight:600">Milestones</h1>
-    <p class="note" style="max-width:46ch">Things most babies — 75% or more — do by each age, from the CDC’s checklists. Every baby grows at their own pace; you know ${esc(S.profile.name)} best.${a.adj?` <b>Using her adjusted age</b> (born ${S.profile.earlyWeeks} weeks early).`:''}</p>
+    <h1 class="display" style="font-size:30px;margin:0 0 4px">Milestones</h1>
+    <p class="note" style="max-width:46ch">Things most babies — 75% or more — do by each age, from the CDC’s checklists. Every baby grows at their own pace; you know ${esc(S.profile.name)} best.${a.adj?` <b>Using adjusted age</b> (born ${S.profile.earlyWeeks} weeks early).`:''}</p>
   </header>
   <div class="pills" role="tablist">
     ${MILESTONES.map(b => {
@@ -893,23 +1098,52 @@ function earlierUnchecked(cur){
 }
 
 function viewFirsts(){
+  const seg = state.firstsSeg;
+  return `
+  <header style="padding:10px 2px 12px">
+    <h1 class="display" style="font-size:30px;margin:0 0 4px">Firsts</h1>
+    <p class="note">The moments you’ll want the exact date — and the photo — for, forever.</p>
+  </header>
+  <div class="seg" style="margin-bottom:14px" role="group" aria-label="Firsts sections">
+    <button data-seg="firsts" aria-pressed="${seg==='firsts'}">💛 Firsts</button>
+    <button data-seg="months" aria-pressed="${seg==='months'}">📸 Month by month</button>
+  </div>
+  ${seg === 'firsts' ? firstsGrid() : monthsGrid()}`;
+}
+function firstsGrid(){
   const logged = S.firsts || [];
   const byId = Object.fromEntries(logged.map(f => [f.id, f]));
   const customs = logged.filter(f => f.custom);
-  return `
-  <header style="padding:10px 2px 12px">
-    <h1 class="display" style="font-size:30px;margin:0 0 4px;font-weight:600">Firsts</h1>
-    <p class="note">The moments you’ll want the exact date for, forever.</p>
-  </header>
-  <div class="firsts">
+  return `<div class="firsts">
     ${FIRST_PRESETS.map(p => {
       const f = byId[p.id];
       return f && f.date
-        ? `<button class="first" data-first="${p.id}"><span class="e">${p.e}</span><b>${p.t}</b><span class="d">${fmtMed(fromISO(f.date))}</span>${f.note?`<span class="n">“${esc(f.note)}”</span>`:''}</button>`
-        : `<button class="first todo" data-first="${p.id}"><span class="e" style="filter:grayscale(.6);opacity:.7">${p.e}</span><b>${p.t}</b><span class="d" style="color:var(--muted)">＋ log it</span></button>`;
+        ? `<button class="first" data-first="${p.id}">
+            ${f.photo?`<img class="thumb" data-photo="first:${p.id}" alt="">`:''}
+            <span class="e">${p.e}</span><b>${p.t}</b><span class="d">${fmtMed(fromISO(f.date))}</span>${f.note?`<span class="n">“${esc(f.note)}”</span>`:''}</button>`
+        : `<button class="first todo" data-first="${p.id}"><span class="e">${p.e}</span><b>${p.t}</b><span class="d" style="color:var(--muted)">＋ log it</span></button>`;
     }).join('')}
-    ${customs.map(f => `<button class="first" data-first="${f.id}"><span class="e">${f.e}</span><b>${esc(f.t)}</b><span class="d">${f.date?fmtMed(fromISO(f.date)):''}</span>${f.note?`<span class="n">“${esc(f.note)}”</span>`:''}</button>`).join('')}
+    ${customs.map(f => `<button class="first" data-first="${f.id}">
+        ${f.photo?`<img class="thumb" data-photo="first:${f.id}" alt="">`:''}
+        <span class="e">${f.e}</span><b>${esc(f.t)}</b><span class="d">${f.date?fmtMed(fromISO(f.date)):''}</span>${f.note?`<span class="n">“${esc(f.note)}”</span>`:''}</button>`).join('')}
     <button class="first todo" data-act="add-first"><span class="e">💛</span><b>Add your own</b><span class="d" style="color:var(--muted)">anything worth remembering</span></button>
+  </div>`;
+}
+function monthsGrid(){
+  const slots = monthSlots();
+  const havePhotos = (S.settings.monthPhotos || {});
+  return `
+  <p class="note" style="margin:0 0 12px">One photo on every month-day — by the first birthday you’ll have the whole story in one grid.</p>
+  <div class="months">
+    ${slots.map(s => {
+      const has = havePhotos[s.id];
+      if (has) return `<button class="mslot" data-mslot="${s.id}">
+          <img class="arch" data-photo="${s.id}" alt="${s.label} photo"><b>${s.label}</b><span>${fmtShort(s.date)}</span></button>`;
+      if (!s.unlocked) return `<div class="mslot empty locked" aria-disabled="true">
+          <span class="hole">🔒</span><b>${s.label}</b><span>${fmtShort(s.date)}</span></div>`;
+      return `<button class="mslot empty" data-mslot="${s.id}">
+          <span class="hole">＋</span><b>${s.label}</b><span>${fmtShort(s.date)}</span></button>`;
+    }).join('')}
   </div>`;
 }
 
@@ -919,7 +1153,7 @@ function viewDays(){
   const up = sd.upcoming.slice(0, 14);
   return `
   <header style="padding:10px 2px 12px">
-    <h1 class="display" style="font-size:30px;margin:0 0 4px;font-weight:600">Special days</h1>
+    <h1 class="display" style="font-size:30px;margin:0 0 4px">Special days</h1>
     <p class="note">Month-days, half birthdays, the big ones — plus any you add.</p>
   </header>
   <section class="card">
@@ -948,7 +1182,7 @@ function viewMore(){
   const standalone = isStandalone();
   return `
   <header style="padding:10px 2px 12px">
-    <h1 class="display" style="font-size:30px;margin:0 0 4px;font-weight:600">More</h1>
+    <h1 class="display" style="font-size:30px;margin:0 0 4px">More</h1>
   </header>
   <section class="card">
     <h2>Profile</h2>
@@ -975,10 +1209,10 @@ function viewMore(){
   </section>
   <section class="card">
     <h2>Backup</h2>
-    <p class="note" style="margin-top:6px">Your data lives only in this browser. Export a backup now and then — especially before clearing browser data or switching phones.${S.settings.lastBackup?` Last backup: ${fmtShort(fromISO(S.settings.lastBackup))}.`:''}</p>
+    <p class="note" style="margin-top:6px">Your data and photos live only in this browser. Export a backup now and then — especially before clearing browser data or switching phones. Backups include photos.${S.settings.lastBackup?` Last backup: ${fmtShort(fromISO(S.settings.lastBackup))}.`:''}</p>
     <div class="row" style="margin-top:10px; flex-wrap:wrap">
       <button class="btn ghost small" data-act="export">Export file</button>
-      <button class="btn ghost small" data-act="copy">Copy backup</button>
+      <button class="btn ghost small" data-act="copy">Copy (no photos)</button>
       <button class="btn ghost small" data-act="import">Import</button>
       <input id="import-file" type="file" accept="application/json,.json" hidden>
     </div>
@@ -995,31 +1229,53 @@ function viewMore(){
   </section>
   <section class="card" style="border-color:var(--danger)">
     <h2 style="color:var(--danger)">Start over</h2>
-    <p class="note" style="margin-top:6px">Erases everything in this app on this device. Export a backup first.</p>
+    <p class="note" style="margin-top:6px">Erases everything in this app on this device, photos included. Export a backup first.</p>
     <button class="btn danger small" data-act="reset" style="margin-top:8px">Erase all data…</button>
   </section>`;
 }
 
 /* ---------- sheets ---------- */
+function photoRowHTML(photoId, hasPhoto){
+  const pend = state.pendingPhoto;
+  const showing = pend && pend !== 'remove' ? 'pending' : (hasPhoto && pend !== 'remove' ? 'saved' : 'none');
+  return `<div class="photorow">
+    ${showing === 'none'
+      ? `<span class="hole">📷</span>`
+      : showing === 'pending'
+        ? `<img class="arch" src="${pend.url}" alt="Chosen photo">`
+        : `<img class="arch" data-photo="${photoId}" alt="Saved photo">`}
+    <div class="stack" style="flex:1">
+      <button class="btn ghost small" data-act="pick-photo">${showing==='none'?'📷 Add a photo':'Change photo'}</button>
+      ${showing!=='none'?`<button class="btn quiet small" data-act="drop-photo">Remove photo</button>`:''}
+      <input id="photo-file" type="file" accept="image/*" hidden>
+    </div>
+  </div>`;
+}
 function firstSheet(id){
   const preset = FIRST_PRESETS.find(p => p.id === id);
   const existing = (S.firsts||[]).find(f => f.id === id);
   const t = preset ? preset.t : (existing?existing.t:'');
   const e = preset ? preset.e : (existing?existing.e:'💛');
+  state.pendingPhoto = undefined;
   openSheet(`
     <h3>${e} ${esc(t)}</h3>
+    <div id="photo-zone" data-photo-id="first:${id}" data-has-photo="${!!(existing&&existing.photo)}">${photoRowHTML(`first:${id}`, !!(existing&&existing.photo))}</div>
     <div class="field"><label for="fs-date">When?</label>
       <input id="fs-date" type="date" max="${isoOf(today0())}" value="${existing&&existing.date?existing.date:isoOf(today0())}"></div>
     <div class="field"><label for="fs-note">A note for future you (optional)</label>
       <textarea id="fs-note" rows="2" maxlength="200" placeholder="who was there, what it was like…">${existing&&existing.note?esc(existing.note):''}</textarea></div>
-    <div class="row">
+    <div class="row" style="flex-wrap:wrap">
       <button class="btn" style="flex:1" data-save-first="${id}">Save</button>
+      ${existing&&existing.date?`<button class="btn ghost" data-share-first="${id}">🎉 Share card</button>`:''}
       ${existing&&existing.date?`<button class="btn quiet" data-remove-first="${id}">Remove</button>`:''}
     </div>`);
 }
 function customFirstSheet(){
+  state.pendingPhoto = undefined;
+  const newId = 'c' + Date.now();
   openSheet(`
     <h3>💛 A first of your own</h3>
+    <div id="photo-zone" data-photo-id="first:${newId}" data-has-photo="false">${photoRowHTML(`first:${newId}`, false)}</div>
     <div class="field"><label for="cf-emoji">Emoji</label>
       <input id="cf-emoji" type="text" maxlength="4" value="💛" style="width:90px"></div>
     <div class="field"><label for="cf-title">What happened?</label>
@@ -1028,7 +1284,20 @@ function customFirstSheet(){
       <input id="cf-date" type="date" max="${isoOf(today0())}" value="${isoOf(today0())}"></div>
     <div class="field"><label for="cf-note">Note (optional)</label>
       <textarea id="cf-note" rows="2" maxlength="200"></textarea></div>
-    <button class="btn" style="width:100%" data-act="save-custom-first">Save</button>`);
+    <button class="btn" style="width:100%" data-act="save-custom-first" data-new-id="${newId}">Save</button>`);
+}
+function monthSheet(slotId){
+  const slot = monthSlots().find(s => s.id === slotId);
+  if (!slot) return;
+  const has = !!(S.settings.monthPhotos||{})[slotId];
+  state.pendingPhoto = undefined;
+  openSheet(`
+    <h3>📸 ${esc(slot.label)} — ${fmtMed(slot.date)}</h3>
+    <div id="photo-zone" data-photo-id="${slotId}" data-has-photo="${has}">${photoRowHTML(slotId, has)}</div>
+    <div class="row">
+      <button class="btn" style="flex:1" data-save-month="${slotId}">Save</button>
+      ${has?`<button class="btn quiet" data-remove-month="${slotId}">Remove</button>`:''}
+    </div>`);
 }
 function customDaySheet(){
   openSheet(`
@@ -1061,9 +1330,110 @@ function installSheet(){
     </div>`);
 }
 
+/* ---------- share cards ---------- */
+function archPath(ctx, x, y, w, h, br){
+  const r = w/2;
+  ctx.beginPath();
+  ctx.moveTo(x, y + r);
+  ctx.arc(x + r, y + r, r, Math.PI, 0);
+  ctx.lineTo(x + w, y + h - br);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - br, y + h);
+  ctx.lineTo(x + br, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - br);
+  ctx.closePath();
+}
+function blobShape(ctx, cx, cy, rx, ry, color){
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, rx, ry, 0.5, 0, 7);
+  ctx.fill();
+}
+async function shareCard(firstId){
+  const f = (S.firsts||[]).find(x => x.id === firstId);
+  if (!f || !f.date) return;
+  await document.fonts.ready;
+  const W = 1080, H = 1350;
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const x = c.getContext('2d');
+  // ground
+  x.fillStyle = '#fff5ef'; x.fillRect(0, 0, W, H);
+  blobShape(x, 130, 150, 200, 160, 'rgba(247,185,85,.25)');
+  blobShape(x, 960, 260, 180, 150, 'rgba(242,125,160,.20)');
+  blobShape(x, 900, 1180, 220, 170, 'rgba(72,177,135,.16)');
+  blobShape(x, 140, 1220, 170, 140, 'rgba(255,139,106,.18)');
+  // photo arch or big emoji
+  const rec = f.photo ? await photoGet(`first:${f.id}`) : null;
+  if (rec){
+    const img = await createImageBitmap(rec.blob);
+    const aw = 560, ah = 700, ax = (W-aw)/2, ay = 130;
+    x.save(); archPath(x, ax, ay, aw, ah, 40); x.clip();
+    const s = Math.max(aw/img.width, ah/img.height);
+    x.drawImage(img, ax + (aw - img.width*s)/2, ay + (ah - img.height*s)/2, img.width*s, img.height*s);
+    x.restore();
+    x.save(); x.strokeStyle = '#ff8b6a'; x.lineWidth = 6; x.setLineDash([2, 18]); x.lineCap = 'round';
+    archPath(x, ax-16, ay-16, aw+32, ah+32, 48); x.stroke(); x.restore();
+    img.close();
+  } else {
+    x.font = '300px system-ui'; x.textAlign = 'center'; x.fillText(f.e, W/2, 560);
+  }
+  // words
+  const name = S.profile.name;
+  const d = fromISO(f.date);
+  const ageAt = calAge(fromISO(S.profile.dob), d);
+  const ageStr = ageAt.months < 1 ? `${diffDays(fromISO(S.profile.dob), d)} days old`
+    : ageAt.months < 24 ? `${ageAt.months} month${ageAt.months===1?'':'s'}, ${ageAt.d} day${ageAt.d===1?'':'s'} old`
+    : `${ageAt.y} year${ageAt.y===1?'':'s'}, ${ageAt.m} month${ageAt.m===1?'':'s'} old`;
+  x.textAlign = 'center';
+  x.fillStyle = '#4d3b52';
+  x.font = '600 76px Fredoka, system-ui';
+  x.fillText(`${f.e} ${f.t}`, W/2, rec ? 990 : 800);
+  x.font = '500 52px Fredoka, system-ui';
+  x.fillStyle = '#ff8b6a';
+  x.fillText(name, W/2, rec ? 1075 : 885);
+  x.font = '44px system-ui';
+  x.fillStyle = '#a08b9e';
+  x.fillText(`${d.toLocaleDateString(undefined,{month:'long', day:'numeric', year:'numeric'})} · ${ageStr}`, W/2, rec ? 1140 : 950);
+  x.font = '500 40px Fredoka, system-ui';
+  x.fillStyle = '#4d3b52';
+  x.fillText('🌙 Little Days', W/2, H - 70);
+  const blob = await new Promise(r => c.toBlob(r, 'image/png'));
+  const file = new File([blob], `${name}-${f.t}.png`.replace(/\s+/g, '-').toLowerCase(), {type:'image/png'});
+  if (navigator.canShare && navigator.canShare({files:[file]})){
+    try{ await navigator.share({files:[file], title: `${name} — ${f.t}`}); return; }catch(e){ if (e.name === 'AbortError') return; }
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = file.name;
+  a.click(); URL.revokeObjectURL(a.href);
+  toast('Card saved to downloads 🎉');
+}
+
 /* ---------- actions ---------- */
+async function handlePhotoFile(file){
+  if (!file) return;
+  try{
+    const blob = await shrink(file);
+    if (!blob) throw new Error('no blob');
+    if (state.pendingPhoto && state.pendingPhoto.url) URL.revokeObjectURL(state.pendingPhoto.url);
+    state.pendingPhoto = { blob, url: URL.createObjectURL(blob) };
+    const zone = document.getElementById('photo-zone');
+    if (zone) zone.innerHTML = photoRowHTML(zone.dataset.photoId, zone.dataset.hasPhoto === 'true');
+  }catch(e){
+    toast('Couldn’t read that photo — try a different one');
+  }
+}
+async function commitPendingPhoto(photoId){
+  if (state.pendingPhoto === undefined) return null;        // untouched
+  if (state.pendingPhoto === 'remove'){ await photoDel(photoId); return false; }
+  if (state.pendingPhoto && state.pendingPhoto.blob){
+    try{ await photoPut(photoId, state.pendingPhoto.blob); return true; }
+    catch(e){ toast('Couldn’t save the photo — storage may be full'); return null; }
+  }
+  return null;
+}
+
 document.addEventListener('click', e => {
   const nav2 = e.target.closest('[data-nav2]'); if (nav2){ nav(nav2.dataset.nav2); return; }
+  const seg = e.target.closest('[data-seg]'); if (seg){ state.firstsSeg = seg.dataset.seg; render(); return; }
   const pill = e.target.closest('[data-bracket]'); if (pill){ state.bracket = Number(pill.dataset.bracket); render(); return; }
   const chk = e.target.closest('[data-check]');
   if (chk){
@@ -1071,29 +1441,61 @@ document.addEventListener('click', e => {
     if (S.checks[key]) delete S.checks[key];
     else {
       S.checks[key] = isoOf(today0());
+      if (navigator.vibrate) navigator.vibrate(12);
       const r = chk.getBoundingClientRect();
       confetti(r.left + 20, r.top + 10);
     }
     save(); render(); return;
   }
   const first = e.target.closest('[data-first]'); if (first){ firstSheet(first.dataset.first); return; }
+  const mslot = e.target.closest('[data-mslot]'); if (mslot){ monthSheet(mslot.dataset.mslot); return; }
+  const shareF = e.target.closest('[data-share-first]');
+  if (shareF){ shareCard(shareF.dataset.shareFirst); return; }
   const saveF = e.target.closest('[data-save-first]');
   if (saveF){
-    const id = saveF.dataset.saveFirst;
-    const date = document.getElementById('fs-date').value;
-    const note = document.getElementById('fs-note').value.trim();
-    if (!date) return;
-    S.firsts = (S.firsts||[]).filter(f => f.id !== id);
-    const preset = FIRST_PRESETS.find(p => p.id === id);
-    const old = null;
-    S.firsts.push(preset ? {id, e:preset.e, t:preset.t, date, note} : Object.assign({custom:true}, (S._editCustom||{}), {id, date, note}));
-    delete S._editCustom;
-    save(); closeSheet(); render(); confetti(); toast('Saved 💛');
+    (async () => {
+      const id = saveF.dataset.saveFirst;
+      const date = document.getElementById('fs-date').value;
+      const note = document.getElementById('fs-note').value.trim();
+      if (!date) return;
+      const prev = (S.firsts||[]).find(f => f.id === id);
+      const photoRes = await commitPendingPhoto(`first:${id}`);
+      const hadPhoto = prev ? !!prev.photo : false;
+      const photo = photoRes === null ? hadPhoto : photoRes;
+      S.firsts = (S.firsts||[]).filter(f => f.id !== id);
+      const preset = FIRST_PRESETS.find(p => p.id === id);
+      if (preset) S.firsts.push({id, e:preset.e, t:preset.t, date, note, photo});
+      else if (prev) S.firsts.push(Object.assign({}, prev, {date, note, photo}));
+      save(); closeSheet(); render(); confetti(); toast('Saved 💛');
+    })();
     return;
   }
   const remF = e.target.closest('[data-remove-first]');
   if (remF){
-    S.firsts = (S.firsts||[]).filter(f => f.id !== remF.dataset.removeFirst);
+    const id = remF.dataset.removeFirst;
+    photoDel(`first:${id}`).catch(()=>{});
+    S.firsts = (S.firsts||[]).filter(f => f.id !== id);
+    save(); closeSheet(); render(); toast('Removed');
+    return;
+  }
+  const saveM = e.target.closest('[data-save-month]');
+  if (saveM){
+    (async () => {
+      const id = saveM.dataset.saveMonth;
+      const res = await commitPendingPhoto(id);
+      S.settings.monthPhotos = S.settings.monthPhotos || {};
+      if (res === true) S.settings.monthPhotos[id] = true;
+      if (res === false) delete S.settings.monthPhotos[id];
+      save(); closeSheet(); render();
+      if (res === true){ confetti(); toast('Photo saved 📸'); }
+    })();
+    return;
+  }
+  const remM = e.target.closest('[data-remove-month]');
+  if (remM){
+    const id = remM.dataset.removeMonth;
+    photoDel(id).catch(()=>{});
+    if (S.settings.monthPhotos) delete S.settings.monthPhotos[id];
     save(); closeSheet(); render(); toast('Removed');
     return;
   }
@@ -1109,14 +1511,26 @@ document.addEventListener('click', e => {
   if (!act) return;
   switch (act.dataset.act){
     case 'shuffle': state.shuffle++; render(); break;
+    case 'pick-photo': document.getElementById('photo-file')?.click(); break;
+    case 'drop-photo': {
+      if (state.pendingPhoto && state.pendingPhoto.url) URL.revokeObjectURL(state.pendingPhoto.url);
+      state.pendingPhoto = 'remove';
+      const zone = document.getElementById('photo-zone');
+      if (zone) zone.innerHTML = photoRowHTML(zone.dataset.photoId, zone.dataset.hasPhoto === 'true');
+      break;
+    }
     case 'add-first': customFirstSheet(); break;
     case 'save-custom-first': {
-      const t = document.getElementById('cf-title').value.trim();
-      const date = document.getElementById('cf-date').value;
-      if (!t || !date){ toast('Give it a name and a date'); break; }
-      S.firsts = S.firsts || [];
-      S.firsts.push({ id:'c'+Date.now(), custom:true, e:(document.getElementById('cf-emoji').value.trim()||'💛').slice(0,4), t, date, note:document.getElementById('cf-note').value.trim() });
-      save(); closeSheet(); render(); confetti(); toast('Saved 💛');
+      (async () => {
+        const t = document.getElementById('cf-title').value.trim();
+        const date = document.getElementById('cf-date').value;
+        if (!t || !date){ toast('Give it a name and a date'); return; }
+        const id = act.dataset.newId || ('c' + Date.now());
+        const photoRes = await commitPendingPhoto(`first:${id}`);
+        S.firsts = S.firsts || [];
+        S.firsts.push({ id, custom:true, e:(document.getElementById('cf-emoji').value.trim()||'💛').slice(0,4), t, date, note:document.getElementById('cf-note').value.trim(), photo: photoRes === true });
+        save(); closeSheet(); render(); confetti(); toast('Saved 💛');
+      })();
       break;
     }
     case 'add-day': customDaySheet(); break;
@@ -1139,31 +1553,46 @@ document.addEventListener('click', e => {
       break;
     }
     case 'export': {
-      const data = JSON.stringify(S, null, 2);
-      const blob = new Blob([data], {type:'application/json'});
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `little-days-backup-${isoOf(today0())}.json`;
-      a.click(); URL.revokeObjectURL(a.href);
-      S.settings.lastBackup = isoOf(today0()); save(); render(); toast('Backup exported ✓');
+      (async () => {
+        const photos = {};
+        try{
+          for (const rec of await photoAll()){
+            photos[rec.id] = await new Promise((res, rej) => {
+              const fr = new FileReader();
+              fr.onload = () => res(fr.result); fr.onerror = rej;
+              fr.readAsDataURL(rec.blob);
+            });
+          }
+        }catch(e){}
+        const data = JSON.stringify(Object.assign({}, S, {backup:2, photos}));
+        const blob = new Blob([data], {type:'application/json'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `little-days-backup-${isoOf(today0())}.json`;
+        a.click(); URL.revokeObjectURL(a.href);
+        S.settings.lastBackup = isoOf(today0()); save(); render(); toast('Backup exported ✓');
+      })();
       break;
     }
     case 'copy': {
       navigator.clipboard.writeText(JSON.stringify(S)).then(
-        () => { S.settings.lastBackup = isoOf(today0()); save(); render(); toast('Backup copied ✓'); },
+        () => { toast('Copied (data only, no photos) ✓'); },
         () => toast('Couldn’t copy — try Export instead'));
       break;
     }
     case 'import': document.getElementById('import-file').click(); break;
     case 'reset':
       openSheet(`<h3>Erase everything?</h3>
-        <p class="note" style="margin:0 0 16px">This wipes ${esc(S.profile?.name||'baby')}’s data from this device. There is no undo.</p>
+        <p class="note" style="margin:0 0 16px">This wipes ${esc(S.profile?.name||'baby')}’s data and photos from this device. There is no undo.</p>
         <div class="row"><button class="btn danger" style="flex:1" data-act="reset-confirm">Yes, erase it all</button>
         <button class="btn ghost" style="flex:1" data-act="sheet-close">Keep it</button></div>`);
       break;
     case 'reset-confirm':
-      S = { v:1, profile:null, checks:{}, firsts:[], customDays:[], settings:{theme:'auto', installDismissed:false, lastBackup:null} };
-      save(); closeSheet(); state.view='today'; render();
+      (async () => {
+        try{ for (const rec of await photoAll()) await photoDel(rec.id); }catch(e){}
+        S = { v:1, profile:null, checks:{}, firsts:[], customDays:[], settings:{theme:'auto', installDismissed:false, lastBackup:null} };
+        save(); closeSheet(); state.view='today'; render();
+      })();
       break;
     case 'sheet-close': closeSheet(); break;
     case 'install': installSheet(); break;
@@ -1174,16 +1603,31 @@ document.addEventListener('click', e => {
   }
 });
 document.addEventListener('change', e => {
+  if (e.target.id === 'photo-file'){
+    handlePhotoFile(e.target.files[0]);
+    e.target.value = '';
+    return;
+  }
   if (e.target.id === 'import-file'){
     const file = e.target.files[0]; if (!file) return;
     const reader = new FileReader();
     reader.onload = () => {
-      try{
-        const data = JSON.parse(reader.result);
-        if (!data || data.v !== 1 || !data.profile || !data.profile.dob) throw new Error('bad');
-        S = data; S.settings = Object.assign({theme:'auto', installDismissed:false, lastBackup:null}, S.settings||{});
-        save(); state.bracket = null; render(); toast(`Welcome back, ${S.profile.name} 💛`);
-      }catch(err){ toast('That file isn’t a Little Days backup'); }
+      (async () => {
+        try{
+          const data = JSON.parse(reader.result);
+          if (!data || data.v !== 1 || !data.profile || !data.profile.dob) throw new Error('bad');
+          const photos = data.photos || {};
+          delete data.photos; delete data.backup;
+          S = data; S.settings = Object.assign({theme:'auto', installDismissed:false, lastBackup:null}, S.settings||{});
+          for (const [id, dataURL] of Object.entries(photos)){
+            try{
+              const blob = await (await fetch(dataURL)).blob();
+              await photoPut(id, blob);
+            }catch(err){}
+          }
+          save(); state.bracket = null; render(); toast(`Welcome back, ${S.profile.name} 💛`);
+        }catch(err){ toast('That file isn’t a Little Days backup'); }
+      })();
     };
     reader.readAsText(file);
     e.target.value = '';

@@ -43,9 +43,18 @@ One question drives the app: **"what should I do with my baby today, and is she 
 - Milestone framing follows CDC 2022: "most babies (75%+) do this by…" — reassuring, never alarmist; concerns → pediatrician, with the act-early link.
 - iOS can evict web storage after long disuse → backup export/import is a first-class feature, and the app nags gently in More.
 
-## Design system
+## Design system (v2 — "sticker book nursery")
 
-- Palette (dark, default at night): plum ink `#211b31` / surfaces `#2a2340` / text warm milk `#f5efe6` / accent apricot `#f2a97e` / sage `#a9c7a1` / gold `#e8c87e`. Light: warm blush-linen `#faf3eb`, deep plum text `#38304e`, deeper apricot `#e08856`.
-- Type: Fraunces (soft storybook serif) for the age hero and screen titles; system stack for UI; tabular numerals on all counters.
-- Signature: the breathing apricot halo behind the age hero — the calm heartbeat of the app — plus star confetti when a milestone or first is logged.
+- Palette (light, primary): shell cream `#fff5ef`, cocoa-plum ink `#4d3b52`, melon `#ff8b6a`, butter `#f7b955`, leaf `#48b187`, berry `#f27da0`. Dark ("nursery at night"): cocoa `#2a2033`, surfaces `#352941`, glow-soft accents (`#ffa184` etc.).
+- Type: Fredoka (chubby rounded) for display, headings, buttons, numbers; system stack for body; tabular numerals on counters.
+- Signature: **the nursery arch** — every photo lives in an arch frame (hero portrait, monthly grid, share cards, sheet pickers), plus sticker-tilted emoji chips, drifting sorbet blobs behind the hero, emoji tab bar (☀️ ⭐ 💛 🎈 🧸).
 - Both themes are token-driven (`prefers-color-scheme` + manual `data-theme` override).
+
+## Photos (v2)
+
+- Stored in IndexedDB (`littledays` → `photos`), keyed `first:<id>`, `month:<n>`, `year:<k>`; localStorage only holds boolean flags (`firsts[].photo`, `settings.monthPhotos`).
+- On-device compression before save: ≤1600px longest edge, JPEG q0.82 (`createImageBitmap` with EXIF orientation, `<img>` fallback).
+- Rendering: views emit `<img data-photo="id">`, `hydratePhotos()` fills `src` from cached object URLs after each render.
+- Sheets stage changes in `state.pendingPhoto` (blob | 'remove' | undefined) and commit only on Save.
+- Share cards: 1080×1350 canvas (cream ground, sorbet blobs, arch-clipped photo with dashed melon frame, Fredoka text, age-at-the-time line) → `navigator.share({files})` with download fallback.
+- Backup v2: export embeds photos as data URLs (`backup: 2, photos: {}`); import accepts v1 (no photos) and v2.

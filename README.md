@@ -6,11 +6,13 @@ A free, private baby milestone tracker — built because the "free" apps paywall
 
 ## What it does
 
-- **Today** — exact age (months/days/weeks/days-old), three age-matched activity ideas that rotate daily, "what's typical around now" notes, next special day countdown
+- **Today** — exact age (months/days/weeks/days-old), latest photo in the hero, three age-matched activity ideas that rotate daily, "what's typical around now" notes, "on this day" memories, next special day countdown
 - **Milestones** — all 12 CDC "Learn the Signs. Act Early." checklists (2 months → 5 years, 2022 revision), tap to check off with the date, per-checklist progress
-- **Firsts** — a memory log for first smile, first laugh, first steps… with dates and notes, plus custom firsts
+- **Firsts** — a memory log for first smile, first laugh, first steps… with dates, notes, and **photos**, plus shareable milestone cards (Web Share API) and a classic **month-by-month photo grid**
 - **Days** — auto-generated special days (month-days, 100 days, half birthdays, 1,000 days, birthdays) plus your own
-- **More** — profile, adjusted age for preemies, light/dark theme, JSON backup export/import, install help
+- **More** — profile, adjusted age for preemies, light/dark theme, JSON backup export/import (photos included), install help
+
+Photos are compressed on-device (≤1600px JPEG) and stored in IndexedDB — still zero backend.
 
 ## PWA
 
