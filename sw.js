@@ -1,6 +1,6 @@
 /* Little Days service worker — app shell precache + offline-first */
-const VERSION = 'littledays-v2';
-const RUNTIME = 'littledays-runtime-v2';
+const VERSION = 'littledays-v3';
+const RUNTIME = 'littledays-runtime-v3';
 const SHELL = [
   './',
   './index.html',

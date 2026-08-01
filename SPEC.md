@@ -43,12 +43,13 @@ One question drives the app: **"what should I do with my baby today, and is she 
 - Milestone framing follows CDC 2022: "most babies (75%+) do this by…" — reassuring, never alarmist; concerns → pediatrician, with the act-early link.
 - iOS can evict web storage after long disuse → backup export/import is a first-class feature, and the app nags gently in More.
 
-## Design system (v2 — "sticker book nursery")
+## Design system (v3 — "keepsake stationery")
 
-- Palette (light, primary): shell cream `#fff5ef`, cocoa-plum ink `#4d3b52`, melon `#ff8b6a`, butter `#f7b955`, leaf `#48b187`, berry `#f27da0`. Dark ("nursery at night"): cocoa `#2a2033`, surfaces `#352941`, glow-soft accents (`#ffa184` etc.).
-- Type: Fredoka (chubby rounded) for display, headings, buttons, numbers; system stack for body; tabular numerals on counters.
-- Signature: **the nursery arch** — every photo lives in an arch frame (hero portrait, monthly grid, share cards, sheet pickers), plus sticker-tilted emoji chips, drifting sorbet blobs behind the hero, emoji tab bar (☀️ ⭐ 💛 🎈 🧸).
-- Both themes are token-driven (`prefers-color-scheme` + manual `data-theme` override).
+- No emoji anywhere in the UI; SVG line icons only where an icon earns its place (tab bar, camera placeholder). Restrained radii (6–14px), hairline rules instead of drop shadows.
+- Palette (light, primary): warm paper `#f7f5f2`, soft charcoal ink `#322e2b`, single sage accent `#5f7a61`, warm greys for muted text. Dark: warm charcoal `#211f1d`, surfaces `#2a2725`, lifted sage `#8fae91`.
+- Type: Instrument Serif for the age hero, page titles, and keepsake numerals (the serif date IS the visual on photo-less first cards); system stack for UI; letterspaced small-caps labels; tabular numerals.
+- Signature: **the birth-announcement hero** — ruled block with small-caps labels and a big serif age line, echoed by the double-hairline stationery share cards.
+- Both themes are token-driven (`prefers-color-scheme` + manual `data-theme` override). Confetti is toned to quiet paper flecks in theme colors.
 
 ## Photos (v2)
 
